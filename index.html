@@ -193,8 +193,9 @@
         pointer-events: none;
         z-index: 0;
       }
-      /* Cut a hole in the hero text that matches the pixel reveal */
-      #hero-content.is-revealing {
+      /* Cut a hole in the hero text that matches the pixel reveal.
+         Applied per block (not the whole grid) so the CTAs stay visible. */
+      #hero-content.is-revealing .hero-mask {
         -webkit-mask-image: radial-gradient(
           circle at var(--hx, -999px) var(--hy, -999px),
           transparent var(--hr-in, 0px),
@@ -205,6 +206,18 @@
           transparent var(--hr-in, 0px),
           #000 var(--hr-out, 0px)
         );
+      }
+      /* CTAs float above the pixel desktop while it's revealed */
+      .hero-cta-link {
+        /* Same padding as the primary button (px-5 py-3), so the pill matches */
+        margin: -0.75rem -1.25rem -0.75rem -0.5rem;
+        padding: 0.75rem 1.25rem;
+        border-radius: 0.75rem;
+        transition: background-color 0.2s ease, box-shadow 0.2s ease;
+      }
+      #hero-content.is-revealing .hero-cta-link {
+        background-color: rgb(255 255 255 / 0.92);
+        box-shadow: 0 1px 2px rgb(6 14 38 / 0.12);
       }
       .pixel-screen canvas {
         display: block;
@@ -432,12 +445,12 @@
         >
           <div class="lg:col-span-8 reveal">
             <p
-              class="text-[11px] uppercase tracking-[0.2em] text-navy-800 font-semibold mb-6"
+              class="hero-mask text-[11px] uppercase tracking-[0.2em] text-navy-800 font-semibold mb-6"
             >
               Portfolio / 01
             </p>
             <h1
-              class="font-serif text-[3.35rem] sm:text-[5rem] lg:text-[6.25rem] leading-[0.95] tracking-editorial font-normal text-navy-900"
+              class="hero-mask font-serif text-[3.35rem] sm:text-[5rem] lg:text-[6.25rem] leading-[0.95] tracking-editorial font-normal text-navy-900"
             >
               Design-minded.<br />
               <span class="italic text-navy-700">Human-centered.</span><br />
@@ -467,14 +480,14 @@
               </a>
               <a
                 href="#about"
-                class="inline-flex items-center gap-1.5 text-xs sm:text-sm text-navy-800 hover:text-navy-900 font-semibold underline underline-offset-4 transition-colors"
+                class="hero-cta-link inline-flex items-center gap-1.5 text-xs sm:text-sm text-navy-800 hover:text-navy-900 font-semibold underline underline-offset-4 transition-colors"
               >
                 <span>Read My Story</span>
               </a>
             </div>
             <!-- Touch-only hint for the press & hold pixel reveal -->
             <p
-              class="touch-hint mt-6 items-center gap-2 text-[11px] font-mono tracking-[0.08em] text-navy-500"
+              class="hero-mask touch-hint mt-6 items-center gap-2 text-[11px] font-mono tracking-[0.08em] text-navy-500"
             >
               <span class="inline-block w-1.5 h-1.5 bg-navy-700"></span>
               press &amp; hold to peek underneath
@@ -482,7 +495,7 @@
           </div>
 
           <aside
-            class="lg:col-span-4 lg:pb-2 reveal"
+            class="hero-mask lg:col-span-4 lg:pb-2 reveal"
             style="transition-delay: 120ms"
           >
             <div
@@ -2002,17 +2015,19 @@
         // Hide the hero text inside the reveal: solid hole over the full
         // circle, fading back in across the dithered edge.
         const content = document.getElementById("hero-content");
+        const maskEls = content ? content.querySelectorAll(".hero-mask") : [];
         function maskContent() {
           if (!content) return;
           const wr = wrap.getBoundingClientRect();
-          const cr = content.getBoundingClientRect();
           const outer = s.r + EDGE * (s.r / R_MAX);
           content.classList.add("is-revealing");
-          content.style.setProperty(
-            "--hx",
-            `${s.x * PX + wr.left - cr.left}px`,
-          );
-          content.style.setProperty("--hy", `${s.y * PX + wr.top - cr.top}px`);
+          // Each masked block needs the circle centre in its own coordinates
+          for (const el of maskEls) {
+            const cr = el.getBoundingClientRect();
+            el.style.setProperty("--hx", `${s.x * PX + wr.left - cr.left}px`);
+            el.style.setProperty("--hy", `${s.y * PX + wr.top - cr.top}px`);
+          }
+          // Radii are shared, so they inherit from the container
           content.style.setProperty("--hr-in", `${s.r * PX}px`);
           content.style.setProperty("--hr-out", `${outer * PX}px`);
         }
