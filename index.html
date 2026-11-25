@@ -1,372 +1,577 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" class="scroll-smooth">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#F7F8FA" />
-  <meta name="description" content="Duyen Le — Digital Transformation AI Engineer bridging graphic design, human-centered UX, frontend architecture, and intelligent AI systems." />
-  <title>Duyen Le</title>
-  <link rel="icon" type="image/jpeg" href="duyen.jpg" />
-  <link rel="apple-touch-icon" href="duyen.jpg" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#F7F8FA" />
+    <meta
+      name="description"
+      content="Duyen Le — Digital Transformation AI Engineer bridging graphic design, human-centered UX, frontend architecture, and intelligent AI systems."
+    />
+    <title>Duyen Le</title>
+    <link rel="icon" type="image/jpeg" href="duyen.jpg" />
+    <link rel="apple-touch-icon" href="duyen.jpg" />
 
-  <!-- Google Fonts: Instrument Serif, Plus Jakarta Sans & JetBrains Mono -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <!-- Google Fonts: Instrument Serif, Plus Jakarta Sans & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
 
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            paper: {
-              50: '#FFFFFF',
-              100: '#F7F8FA',
-              200: '#ECEFF4',
-              300: '#E2E6EE',
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              paper: {
+                50: "#FFFFFF",
+                100: "#F7F8FA",
+                200: "#ECEFF4",
+                300: "#E2E6EE",
+              },
+              navy: {
+                950: "#060E26",
+                900: "#0B1944",
+                800: "#163680",
+                700: "#1D4ED8",
+                600: "#33487A",
+                500: "#475577",
+                400: "#647496",
+              },
             },
-            navy: {
-              950: '#060E26',
-              900: '#0B1944',
-              800: '#163680',
-              700: '#1D4ED8',
-              600: '#33487A',
-              500: '#475577',
-              400: '#647496',
-            }
+            fontFamily: {
+              serif: ['"Instrument Serif"', "Georgia", "serif"],
+              sans: ['"Plus Jakarta Sans"', "system-ui", "sans-serif"],
+              mono: [
+                '"JetBrains Mono"',
+                "ui-monospace",
+                "SFMono-Regular",
+                "monospace",
+              ],
+            },
+            letterSpacing: {
+              tightest: "-0.04em",
+              editorial: "-0.025em",
+            },
           },
-          fontFamily: {
-            serif: ['"Instrument Serif"', 'Georgia', 'serif'],
-            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
-            mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
-          },
-          letterSpacing: {
-            tightest: '-0.04em',
-            editorial: '-0.025em',
-          }
-        }
+        },
+      };
+    </script>
+
+    <style>
+      :root {
+        --bg-primary: #f7f8fa;
+        --bg-surface: #eceff4;
+        --text-primary: #0b1944;
+        --text-muted: #475577;
+        --border-hairline: rgba(11, 25, 68, 0.14);
+        --accent-navy: #163680;
       }
-    };
-  </script>
 
-  <style>
-    :root {
-      --bg-primary: #F7F8FA;
-      --bg-surface: #ECEFF4;
-      --text-primary: #0B1944;
-      --text-muted: #475577;
-      --border-hairline: rgba(11, 25, 68, 0.14);
-      --accent-navy: #163680;
-    }
+      * {
+        box-sizing: border-box;
+      }
 
-    * {
-      box-sizing: border-box;
-    }
+      body {
+        background-color: var(--bg-primary);
+        color: var(--text-primary);
+        font-family: "Plus Jakarta Sans", sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        overflow-x: hidden;
+      }
 
-    body {
-      background-color: var(--bg-primary);
-      color: var(--text-primary);
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      overflow-x: hidden;
-    }
+      /* Subtle architectural grid & interactive soft navy spotlight */
+      .hero-grid-bg {
+        background-size: 56px 56px;
+        background-image:
+          linear-gradient(
+            to right,
+            rgba(11, 25, 68, 0.045) 1px,
+            transparent 1px
+          ),
+          linear-gradient(
+            to bottom,
+            rgba(11, 25, 68, 0.045) 1px,
+            transparent 1px
+          );
+        mask-image: radial-gradient(
+          ellipse 85% 75% at 50% 35%,
+          black 35%,
+          transparent 100%
+        );
+        -webkit-mask-image: radial-gradient(
+          ellipse 85% 75% at 50% 35%,
+          black 35%,
+          transparent 100%
+        );
+      }
 
-    /* Subtle architectural grid & interactive soft navy spotlight */
-    .hero-grid-bg {
-      background-size: 56px 56px;
-      background-image: 
-        linear-gradient(to right, rgba(11, 25, 68, 0.045) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(11, 25, 68, 0.045) 1px, transparent 1px);
-      mask-image: radial-gradient(ellipse 85% 75% at 50% 35%, black 35%, transparent 100%);
-      -webkit-mask-image: radial-gradient(ellipse 85% 75% at 50% 35%, black 35%, transparent 100%);
-    }
+      .spotlight-layer {
+        background: radial-gradient(
+          680px circle at var(--mouse-x, 50%) var(--mouse-y, 28%),
+          rgba(22, 54, 128, 0.065),
+          rgba(11, 25, 68, 0.025) 42%,
+          transparent 75%
+        );
+        transition: opacity 0.4s ease;
+      }
 
-    .spotlight-layer {
-      background: radial-gradient(
-        680px circle at var(--mouse-x, 50%) var(--mouse-y, 28%),
-        rgba(22, 54, 128, 0.065),
-        rgba(11, 25, 68, 0.025) 42%,
-        transparent 75%
-      );
-      transition: opacity 0.4s ease;
-    }
+      .hairline-b {
+        border-bottom: 1px solid var(--border-hairline);
+      }
+      .hairline-t {
+        border-top: 1px solid var(--border-hairline);
+      }
+      .hairline-all {
+        border: 1px solid var(--border-hairline);
+      }
 
-    .hairline-b {
-      border-bottom: 1px solid var(--border-hairline);
-    }
-    .hairline-t {
-      border-top: 1px solid var(--border-hairline);
-    }
-    .hairline-all {
-      border: 1px solid var(--border-hairline);
-    }
+      /* Scroll reveal transitions */
+      .reveal {
+        opacity: 0;
+        transform: translateY(22px);
+        transition:
+          opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+          transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .reveal.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
 
-    /* Scroll reveal transitions */
-    .reveal {
-      opacity: 0;
-      transform: translateY(22px);
-      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .reveal.is-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+      /* Custom subtle navy scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f7f8fa;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: rgba(11, 25, 68, 0.22);
+        border-radius: 999px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgba(11, 25, 68, 0.4);
+      }
 
-    /* Custom subtle navy scrollbar */
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-    ::-webkit-scrollbar-track {
-      background: #F7F8FA;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: rgba(11, 25, 68, 0.22);
-      border-radius: 999px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: rgba(11, 25, 68, 0.4);
-    }
+      /* Drawer animation */
+      .drawer-backdrop {
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.35s ease;
+      }
+      .drawer-backdrop.open {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .drawer-panel {
+        transform: translateX(100%);
+        transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .drawer-backdrop.open .drawer-panel {
+        transform: translateX(0);
+      }
 
-    /* Drawer animation */
-    .drawer-backdrop {
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.35s ease;
-    }
-    .drawer-backdrop.open {
-      opacity: 1;
-      pointer-events: auto;
-    }
-    .drawer-panel {
-      transform: translateX(100%);
-      transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .drawer-backdrop.open .drawer-panel {
-      transform: translateX(0);
-    }
+      /* Selection color */
+      ::selection {
+        background: rgba(11, 25, 68, 0.14);
+        color: #0b1944;
+      }
+    </style>
+  </head>
+  <body class="bg-paper-100 text-navy-900">
+    <!-- Interactive Ambient Spotlight & Architectural Grid -->
+    <div
+      id="spotlight"
+      class="spotlight-layer pointer-events-none fixed inset-0 z-0"
+    ></div>
+    <div class="hero-grid-bg pointer-events-none fixed inset-0 z-0"></div>
 
-    /* Selection color */
-    ::selection {
-      background: rgba(11, 25, 68, 0.14);
-      color: #0B1944;
-    }
-  </style>
-</head>
-<body class="bg-paper-100 text-navy-900">
+    <!-- Navigation Header -->
+    <header
+      class="sticky top-0 z-30 backdrop-blur-md bg-paper-100/85 hairline-b"
+    >
+      <div
+        class="max-w-6xl mx-auto px-6 sm:px-10 h-20 flex items-center justify-between gap-4"
+      >
+        <!-- Wordmark -->
+        <a href="#" class="group flex items-center gap-3 focus:outline-none">
+          <span
+            class="text-lg sm:text-xl font-bold tracking-tight text-navy-900"
+          >
+            Duyen Le<span class="text-navy-700">.</span>
+          </span>
+        </a>
 
-  <!-- Interactive Ambient Spotlight & Architectural Grid -->
-  <div id="spotlight" class="spotlight-layer pointer-events-none fixed inset-0 z-0"></div>
-  <div class="hero-grid-bg pointer-events-none fixed inset-0 z-0"></div>
+        <!-- Live Availability Status Pill (Desktop & Tablet) -->
+        <div
+          class="hidden lg:flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-paper-50/90 hairline-all text-xs text-navy-500 shadow-2xs"
+        >
+          <span class="relative flex h-2 w-2">
+            <span
+              class="animate-ping absolute inline-flex h-full w-full rounded-full bg-navy-700 opacity-60"
+            ></span>
+            <span
+              class="relative inline-flex rounded-full h-2 w-2 bg-navy-900"
+            ></span>
+          </span>
+          <span
+            >Available for selected projects ·
+            <span class="text-navy-900 font-semibold"
+              >AI × Design × Engineering</span
+            ></span
+          >
+        </div>
 
-  <!-- Navigation Header -->
-  <header class="sticky top-0 z-30 backdrop-blur-md bg-paper-100/85 hairline-b">
-    <div class="max-w-6xl mx-auto px-6 sm:px-10 h-20 flex items-center justify-between gap-4">
-      <!-- Wordmark -->
-      <a href="#" class="group flex items-center gap-3 focus:outline-none">
-        <span class="text-lg sm:text-xl font-bold tracking-tight text-navy-900">
-          Duyen Le<span class="text-navy-700">.</span>
-        </span>
-      </a>
-
-      <!-- Live Availability Status Pill (Desktop & Tablet) -->
-      <div class="hidden lg:flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-paper-50/90 hairline-all text-xs text-navy-500 shadow-2xs">
-        <span class="relative flex h-2 w-2">
-          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-navy-700 opacity-60"></span>
-          <span class="relative inline-flex rounded-full h-2 w-2 bg-navy-900"></span>
-        </span>
-        <span>Available for selected projects · <span class="text-navy-900 font-semibold">AI × Design × Engineering</span></span>
-      </div>
-
-      <!-- Navigation Links -->
-      <nav aria-label="Main navigation" class="flex items-center gap-5 sm:gap-8 text-xs sm:text-[13px] tracking-wider uppercase text-navy-500">
-        <a href="#principle" class="hidden sm:inline-block hover:text-navy-900 transition-colors py-2 font-medium">Philosophy</a>
-        <a href="#about" class="hover:text-navy-900 transition-colors py-2 font-medium">About</a>
-        <!-- Hidden for now: Selected Work
+        <!-- Navigation Links -->
+        <nav
+          aria-label="Main navigation"
+          class="flex items-center gap-5 sm:gap-8 text-xs sm:text-[13px] tracking-wider uppercase text-navy-500"
+        >
+          <a
+            href="#principle"
+            class="hidden sm:inline-block hover:text-navy-900 transition-colors py-2 font-medium"
+            >Philosophy</a
+          >
+          <a
+            href="#about"
+            class="hover:text-navy-900 transition-colors py-2 font-medium"
+            >About</a
+          >
+          <!-- Hidden for now: Selected Work
         <a href="#work" class="hover:text-navy-900 transition-colors py-2 font-medium">Selected Work</a>
         -->
-        <a href="#contact" class="inline-flex items-center gap-1 text-navy-900 hover:text-navy-700 transition-colors py-2 font-semibold">
-          <span>Get in touch</span>
-          <span aria-hidden="true" class="text-navy-700">↗</span>
-        </a>
-      </nav>
-    </div>
-  </header>
-
-  <main class="relative z-10">
-    <!-- 01 — HERO SECTION -->
-    <section class="max-w-6xl mx-auto px-6 sm:px-10 pt-16 sm:pt-24 pb-20 sm:pb-28">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-end">
-        <div class="lg:col-span-8 reveal">
-          <p class="text-[11px] uppercase tracking-[0.2em] text-navy-800 font-semibold mb-6">
-            Portfolio / 01
-          </p>
-          <h1 class="font-serif text-[3.35rem] sm:text-[5rem] lg:text-[6.25rem] leading-[0.95] tracking-editorial font-normal text-navy-900">
-            Design-minded.<br />
-            <span class="italic text-navy-700">Human-centered.</span><br />
-            AI Engineer at heart.
-          </h1>
-          <div class="mt-9 flex flex-wrap items-center gap-5">
-            <a href="https://dev.duyenle.com" target="_blank" rel="noopener noreferrer" aria-label="Explore Selected Work (opens dev.duyenle.com in a new tab)" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-navy-900 text-paper-50 hover:bg-navy-800 text-xs sm:text-sm font-semibold transition-colors shadow-2xs">
-              <span>Explore Selected Work</span>
-              <span aria-hidden="true">↗</span>
-            </a>
-            <a href="#about" class="inline-flex items-center gap-1.5 text-xs sm:text-sm text-navy-800 hover:text-navy-900 font-semibold underline underline-offset-4 transition-colors">
-              <span>Read My Story</span>
-            </a>
-          </div>
-        </div>
-
-        <aside class="lg:col-span-4 lg:pb-2 reveal" style="transition-delay: 120ms;">
-          <div class="p-6 sm:p-7 rounded-2xl bg-paper-50/90 hairline-all backdrop-blur-sm shadow-sm">
-            <div class="text-[11px] uppercase tracking-[0.16em] text-navy-800 font-semibold mb-3">
-              AI × Design × Engineering
-            </div>
-            <p class="text-sm sm:text-[15px] leading-relaxed text-navy-500">
-              I turn complex technology into thoughtful, intuitive experiences by bringing design and AI engineering together.
-          </div>
-        </aside>
+          <a
+            href="#contact"
+            class="inline-flex items-center gap-1 text-navy-900 hover:text-navy-700 transition-colors py-2 font-semibold"
+          >
+            <span>Get in touch</span>
+            <span aria-hidden="true" class="text-navy-700">↗</span>
+          </a>
+        </nav>
       </div>
-    </section>
+    </header>
 
-    <!-- 02 — PRINCIPLE I RETURN TO -->
-    <section id="principle" class="max-w-6xl mx-auto px-6 sm:px-10 py-20 sm:py-28 hairline-t reveal">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        <div class="lg:col-span-4">
-          <p class="text-[11px] uppercase tracking-[0.2em] text-navy-800 font-semibold">
-            Principle I return to / 02
-          </p>
-        </div>
-        <div class="lg:col-span-8">
-          <blockquote class="font-serif text-3xl sm:text-5xl lg:text-[3.85rem] leading-[1.12] tracking-editorial font-normal text-navy-900">
-            “Great technology shouldn’t feel complicated — it should feel like <span class="italic text-navy-700">a natural, effortless part of everyday life.</span>”
-          </blockquote>
-        </div>
-      </div>
-    </section>
-
-    <!-- 03 — ABOUT / THE SHORT STORY -->
-    <section id="about" class="max-w-6xl mx-auto px-6 sm:px-10 py-20 sm:py-28 hairline-t">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12">
-        <div class="lg:col-span-4 reveal">
-          <p class="text-[11px] uppercase tracking-[0.2em] text-navy-800 font-semibold mb-4">
-            About / 03
-          </p>
-          <h2 class="font-serif text-3xl sm:text-4xl leading-[1.1] tracking-editorial font-normal text-navy-900 mb-6">
-            From visual craft to <span class="italic text-navy-700">intelligent systems.</span>
-          </h2>
-          <div class="inline-flex flex-col gap-2.5 p-5 rounded-2xl bg-paper-50/90 hairline-all w-full max-w-xs shadow-2xs">
-            <span class="text-xs uppercase tracking-widest text-navy-400 font-medium">Evolution</span>
-            <div class="space-y-2.5 text-sm pt-1">
-              <div class="flex items-center justify-between">
-                <span class="text-navy-500">01. Graphic Design</span>
-                <span class="text-xs font-mono text-navy-400">Craft &amp; Visuals</span>
-              </div>
-              <div class="flex items-center justify-between">
-                <span class="text-navy-500">02. UI / UX &amp; Product</span>
-                <span class="text-xs font-mono text-navy-400">Human Empathy</span>
-              </div>
-              <div class="flex items-center justify-between">
-                <span class="text-navy-500">03. Fullstack &amp; Frontend</span>
-                <span class="text-xs font-mono text-navy-400">Systems &amp; Scale</span>
-              </div>
-              <div class="flex items-center justify-between text-navy-900 font-semibold pt-1 hairline-t">
-                <span>04. AI Engineering</span>
-                <span class="text-xs font-mono text-navy-700">Adaptive Intelligence</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="lg:col-span-8 space-y-6 reveal" style="transition-delay: 100ms;">
-          <p class="text-2xl sm:text-3xl lg:text-[31px] leading-[1.36] tracking-[-0.025em] text-navy-900 font-normal">
-            My path here wasn’t linear. I started in <span class="font-serif italic text-navy-700 text-[1.12em]">graphic design</span>, where I developed an appreciation for visual storytelling, composition, and the quiet details that make an experience feel right.
-          </p>
-          <p class="text-lg sm:text-[19px] leading-relaxed text-navy-500">
-            Curiosity pulled me from static layouts into UX/UI and fullstack frontend engineering. Over years of building production web applications, I never saw the interface as mere decoration layered over backend plumbing—to me, the interface and the intelligence behind it work together as one human experience.
-          </p>
-          <p class="text-lg sm:text-[19px] leading-relaxed text-navy-500">
-            Today, my work centers on <span class="text-navy-900 font-semibold">AI engineering</span>. Most AI tools expose raw model complexity—endless prompt boxes, unpredictable latency, and opaque outputs. I treat intelligence as an expressive design material: combining agentic workflows, structured reasoning, and tactile frontend craft so complex capabilities feel calm, transparent, and effortless.
-          </p>
-          <p class="text-lg sm:text-[19px] leading-relaxed text-navy-900 font-medium">
-            I'm interested in the bigger picture: how things work, why they work that way, how people interact with them, and how they can be made better.
-          </p>
-          <p class="text-lg sm:text-[19px] leading-relaxed text-navy-500">
-            I enjoy bringing ideas to life across the entire process, combining design thinking, user experience, and engineering to create digital experiences that are thoughtful, intuitive, and human.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- FOUR PILLARS / HOW I THINK -->
-    <section id="approach" class="bg-paper-200/80 hairline-t hairline-b py-20 sm:py-28">
-      <div class="max-w-6xl mx-auto px-6 sm:px-10">
-        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14 reveal">
-          <div>
-            <p class="text-[11px] uppercase tracking-[0.2em] text-navy-800 font-semibold mb-3">
-              How I Think
+    <main class="relative z-10">
+      <!-- 01 — HERO SECTION -->
+      <section
+        class="max-w-6xl mx-auto px-6 sm:px-10 pt-16 sm:pt-24 pb-20 sm:pb-28"
+      >
+        <div
+          class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-end"
+        >
+          <div class="lg:col-span-8 reveal">
+            <p
+              class="text-[11px] uppercase tracking-[0.2em] text-navy-800 font-semibold mb-6"
+            >
+              Portfolio / 01
             </p>
-            <h2 class="font-serif text-4xl sm:text-5xl lg:text-6xl tracking-editorial font-normal text-navy-900">
-              Four ways of seeing.
+            <h1
+              class="font-serif text-[3.35rem] sm:text-[5rem] lg:text-[6.25rem] leading-[0.95] tracking-editorial font-normal text-navy-900"
+            >
+              Design-minded.<br />
+              <span class="italic text-navy-700">Human-centered.</span><br />
+              AI Engineer at heart.
+            </h1>
+            <div class="mt-9 flex flex-wrap items-center gap-5">
+              <a
+                href="https://dev.duyenle.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Explore Selected Work (opens dev.duyenle.com in a new tab)"
+                class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-navy-900 text-paper-50 hover:bg-navy-800 text-xs sm:text-sm font-semibold transition-colors shadow-2xs"
+              >
+                <span>Explore Selected Work</span>
+                <span aria-hidden="true">↗</span>
+              </a>
+              <a
+                href="#about"
+                class="inline-flex items-center gap-1.5 text-xs sm:text-sm text-navy-800 hover:text-navy-900 font-semibold underline underline-offset-4 transition-colors"
+              >
+                <span>Read My Story</span>
+              </a>
+            </div>
+          </div>
+
+          <aside
+            class="lg:col-span-4 lg:pb-2 reveal"
+            style="transition-delay: 120ms"
+          >
+            <div
+              class="p-6 sm:p-7 rounded-2xl bg-paper-50/90 hairline-all backdrop-blur-sm shadow-sm"
+            >
+              <div
+                class="text-[11px] uppercase tracking-[0.16em] text-navy-800 font-semibold mb-3"
+              >
+                AI × Design × Engineering
+              </div>
+              <p class="text-sm sm:text-[15px] leading-relaxed text-navy-500">
+                I bring design and AI engineering together to transform
+                complex technology into digital experiences that feel
+                thoughtful, intuitive, and human.
+              </p>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- 02 — PRINCIPLE I RETURN TO -->
+      <section
+        id="principle"
+        class="max-w-6xl mx-auto px-6 sm:px-10 py-20 sm:py-28 hairline-t reveal"
+      >
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <div class="lg:col-span-4">
+            <p
+              class="text-[11px] uppercase tracking-[0.2em] text-navy-800 font-semibold"
+            >
+              Principle I return to / 02
+            </p>
+          </div>
+          <div class="lg:col-span-8">
+            <blockquote
+              class="font-serif text-3xl sm:text-5xl lg:text-[3.85rem] leading-[1.12] tracking-editorial font-normal text-navy-900"
+            >
+              “Great technology shouldn’t feel complicated — it should feel like
+              <span class="italic text-navy-700"
+                >a natural, effortless part of everyday life.</span
+              >”
+            </blockquote>
+          </div>
+        </div>
+      </section>
+
+      <!-- 03 — ABOUT / THE SHORT STORY -->
+      <section
+        id="about"
+        class="max-w-6xl mx-auto px-6 sm:px-10 py-20 sm:py-28 hairline-t"
+      >
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12">
+          <div class="lg:col-span-4 reveal">
+            <p
+              class="text-[11px] uppercase tracking-[0.2em] text-navy-800 font-semibold mb-4"
+            >
+              About / 03
+            </p>
+            <h2
+              class="font-serif text-3xl sm:text-4xl leading-[1.1] tracking-editorial font-normal text-navy-900 mb-6"
+            >
+              From visual craft to
+              <span class="italic text-navy-700">intelligent systems.</span>
             </h2>
+            <div
+              class="inline-flex flex-col gap-2.5 p-5 rounded-2xl bg-paper-50/90 hairline-all w-full max-w-xs shadow-2xs"
+            >
+              <span
+                class="text-xs uppercase tracking-widest text-navy-400 font-medium"
+                >Evolution</span
+              >
+              <div class="space-y-2.5 text-sm pt-1">
+                <div class="flex items-center justify-between">
+                  <span class="text-navy-500">01. Graphic Design</span>
+                  <span class="text-xs font-mono text-navy-400"
+                    >Craft &amp; Visuals</span
+                  >
+                </div>
+                <div class="flex items-center justify-between">
+                  <span class="text-navy-500">02. UI / UX &amp; Product</span>
+                  <span class="text-xs font-mono text-navy-400"
+                    >Human Empathy</span
+                  >
+                </div>
+                <div class="flex items-center justify-between">
+                  <span class="text-navy-500"
+                    >03. Fullstack &amp; Frontend</span
+                  >
+                  <span class="text-xs font-mono text-navy-400"
+                    >Systems &amp; Scale</span
+                  >
+                </div>
+                <div
+                  class="flex items-center justify-between text-navy-900 font-semibold pt-1 hairline-t"
+                >
+                  <span>04. AI Engineering</span>
+                  <span class="text-xs font-mono text-navy-700"
+                    >Adaptive Intelligence</span
+                  >
+                </div>
+              </div>
+            </div>
           </div>
-          <p class="text-sm text-navy-500 max-w-sm leading-relaxed">
-            I do my best work where disciplines overlap—connecting the nuance of a micro-interaction to the architecture of an intelligent system.
-          </p>
+
+          <div
+            class="lg:col-span-8 space-y-6 reveal"
+            style="transition-delay: 100ms"
+          >
+            <p
+              class="text-2xl sm:text-3xl lg:text-[31px] leading-[1.36] tracking-[-0.025em] text-navy-900 font-normal"
+            >
+              My path here wasn’t linear. I started in
+              <span class="font-serif italic text-navy-700 text-[1.12em]"
+                >graphic design</span
+              >, where I developed an appreciation for visual storytelling,
+              composition, and the quiet details that make an experience feel
+              right.
+            </p>
+            <p class="text-lg sm:text-[19px] leading-relaxed text-navy-500">
+              Curiosity pulled me from static layouts into UX/UI and fullstack
+              frontend engineering. Over years of building production web
+              applications, I never saw the interface as mere decoration layered
+              over backend plumbing—to me, the interface and the intelligence
+              behind it work together as one human experience.
+            </p>
+            <p class="text-lg sm:text-[19px] leading-relaxed text-navy-500">
+              Today, my work centers on
+              <span class="text-navy-900 font-semibold">AI engineering</span>.
+              Most AI tools expose raw model complexity—endless prompt boxes,
+              unpredictable latency, and opaque outputs. I treat intelligence as
+              an expressive design material: combining agentic workflows,
+              structured reasoning, and tactile frontend craft so complex
+              capabilities feel calm, transparent, and effortless.
+            </p>
+            <p
+              class="text-lg sm:text-[19px] leading-relaxed text-navy-900 font-medium"
+            >
+              I'm interested in the bigger picture: how things work, why they
+              work that way, how people interact with them, and how they can be
+              made better.
+            </p>
+            <p class="text-lg sm:text-[19px] leading-relaxed text-navy-500">
+              I enjoy bringing ideas to life across the entire process,
+              combining design thinking, user experience, and engineering to
+              create digital experiences that are thoughtful, intuitive, and
+              human.
+            </p>
+          </div>
         </div>
+      </section>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 hairline-t">
-          <!-- Pillar 01 -->
-          <article class="pt-8 pb-8 sm:pr-7 hairline-b lg:border-b-0 reveal">
-            <div class="text-[11px] font-mono tracking-[0.14em] text-navy-800 font-medium">01 — DESIGN</div>
-            <h3 class="font-serif text-3xl font-normal tracking-editorial mt-8 mb-3 text-navy-900">
-              Make it meaningful.
-            </h3>
-            <p class="text-sm leading-relaxed text-navy-500">
-              Visual language, editorial hierarchy, and tactile craft. Design isn’t surface polish—it’s how a product earns trust and communicates clarity at a glance.
+      <!-- FOUR PILLARS / HOW I THINK -->
+      <section
+        id="approach"
+        class="bg-paper-200/80 hairline-t hairline-b py-20 sm:py-28"
+      >
+        <div class="max-w-6xl mx-auto px-6 sm:px-10">
+          <div
+            class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14 reveal"
+          >
+            <div>
+              <p
+                class="text-[11px] uppercase tracking-[0.2em] text-navy-800 font-semibold mb-3"
+              >
+                How I Think
+              </p>
+              <h2
+                class="font-serif text-4xl sm:text-5xl lg:text-6xl tracking-editorial font-normal text-navy-900"
+              >
+                Four ways of seeing.
+              </h2>
+            </div>
+            <p class="text-sm text-navy-500 max-w-sm leading-relaxed">
+              I do my best work where disciplines overlap—connecting the nuance
+              of a micro-interaction to the architecture of an intelligent
+              system.
             </p>
-          </article>
+          </div>
 
-          <!-- Pillar 02 -->
-          <article class="pt-8 pb-8 sm:pl-7 lg:px-7 hairline-b lg:border-b-0 sm:border-l border-[rgba(11,25,68,0.14)] reveal" style="transition-delay: 80ms;">
-            <div class="text-[11px] font-mono tracking-[0.14em] text-navy-800 font-medium">02 — EXPERIENCE</div>
-            <h3 class="font-serif text-3xl font-normal tracking-editorial mt-8 mb-3 text-navy-900">
-              Make it make sense.
-            </h3>
-            <p class="text-sm leading-relaxed text-navy-500">
-              Understanding human mental models, reducing cognitive load, and turning ambiguous workflows into calm, intuitive journeys people actually enjoy using.
-            </p>
-          </article>
+          <div
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 hairline-t"
+          >
+            <!-- Pillar 01 -->
+            <article class="pt-8 pb-8 sm:pr-7 hairline-b lg:border-b-0 reveal">
+              <div
+                class="text-[11px] font-mono tracking-[0.14em] text-navy-800 font-medium"
+              >
+                01 — DESIGN
+              </div>
+              <h3
+                class="font-serif text-3xl font-normal tracking-editorial mt-8 mb-3 text-navy-900"
+              >
+                Make it meaningful.
+              </h3>
+              <p class="text-sm leading-relaxed text-navy-500">
+                Visual language, editorial hierarchy, and tactile craft. Design
+                isn’t surface polish—it’s how a product earns trust and
+                communicates clarity at a glance.
+              </p>
+            </article>
 
-          <!-- Pillar 03 -->
-          <article class="pt-8 pb-8 sm:pr-7 lg:px-7 hairline-b sm:border-b-0 lg:border-l border-[rgba(11,25,68,0.14)] reveal" style="transition-delay: 160ms;">
-            <div class="text-[11px] font-mono tracking-[0.14em] text-navy-800 font-medium">03 — ENGINEERING</div>
-            <h3 class="font-serif text-3xl font-normal tracking-editorial mt-8 mb-3 text-navy-900">
-              Make it real.
-            </h3>
-            <p class="text-sm leading-relaxed text-navy-500">
-              Fullstack and frontend architecture built with rigor—accessible, resilient, fast, and engineered so design intent survives intact all the way to production.
-            </p>
-          </article>
+            <!-- Pillar 02 -->
+            <article
+              class="pt-8 pb-8 sm:pl-7 lg:px-7 hairline-b lg:border-b-0 sm:border-l border-[rgba(11,25,68,0.14)] reveal"
+              style="transition-delay: 80ms"
+            >
+              <div
+                class="text-[11px] font-mono tracking-[0.14em] text-navy-800 font-medium"
+              >
+                02 — EXPERIENCE
+              </div>
+              <h3
+                class="font-serif text-3xl font-normal tracking-editorial mt-8 mb-3 text-navy-900"
+              >
+                Make it make sense.
+              </h3>
+              <p class="text-sm leading-relaxed text-navy-500">
+                Understanding human mental models, reducing cognitive load, and
+                turning ambiguous workflows into calm, intuitive journeys people
+                actually enjoy using.
+              </p>
+            </article>
 
-          <!-- Pillar 04 -->
-          <article class="pt-8 pb-2 sm:pl-7 sm:border-l border-[rgba(11,25,68,0.14)] reveal" style="transition-delay: 240ms;">
-            <div class="text-[11px] font-mono tracking-[0.14em] text-navy-700 font-semibold">04 — INTELLIGENCE</div>
-            <h3 class="font-serif text-3xl font-normal tracking-editorial mt-8 mb-3 text-navy-900">
-              Make it adaptive.
-            </h3>
-            <p class="text-sm leading-relaxed text-navy-500">
-              Applied AI systems, agentic workflows, and streaming interfaces designed around human agency—where machine intelligence feels effortless, not intimidating.
-            </p>
-          </article>
+            <!-- Pillar 03 -->
+            <article
+              class="pt-8 pb-8 sm:pr-7 lg:px-7 hairline-b sm:border-b-0 lg:border-l border-[rgba(11,25,68,0.14)] reveal"
+              style="transition-delay: 160ms"
+            >
+              <div
+                class="text-[11px] font-mono tracking-[0.14em] text-navy-800 font-medium"
+              >
+                03 — ENGINEERING
+              </div>
+              <h3
+                class="font-serif text-3xl font-normal tracking-editorial mt-8 mb-3 text-navy-900"
+              >
+                Make it real.
+              </h3>
+              <p class="text-sm leading-relaxed text-navy-500">
+                Fullstack and frontend architecture built with rigor—accessible,
+                resilient, fast, and engineered so design intent survives intact
+                all the way to production.
+              </p>
+            </article>
+
+            <!-- Pillar 04 -->
+            <article
+              class="pt-8 pb-2 sm:pl-7 sm:border-l border-[rgba(11,25,68,0.14)] reveal"
+              style="transition-delay: 240ms"
+            >
+              <div
+                class="text-[11px] font-mono tracking-[0.14em] text-navy-700 font-semibold"
+              >
+                04 — INTELLIGENCE
+              </div>
+              <h3
+                class="font-serif text-3xl font-normal tracking-editorial mt-8 mb-3 text-navy-900"
+              >
+                Make it adaptive.
+              </h3>
+              <p class="text-sm leading-relaxed text-navy-500">
+                Applied AI systems, agentic workflows, and streaming interfaces
+                designed around human agency—where machine intelligence feels
+                effortless, not intimidating.
+              </p>
+            </article>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- 04 — SELECTED WORK / CASE STUDIES (hidden for now) -->
-    <!--
+      <!-- 04 — SELECTED WORK / CASE STUDIES (hidden for now) -->
+      <!--
     <section id="work" class="max-w-6xl mx-auto px-6 sm:px-10 py-20 sm:py-28">
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 reveal">
         <div>
@@ -421,297 +626,447 @@
     </section>
     -->
 
-    <!-- 05 — INTERACTIVE CONTACT SECTION -->
-    <section id="contact" class="max-w-6xl mx-auto px-6 sm:px-10 py-20 sm:py-28 hairline-t reveal">
-      <div class="rounded-3xl bg-paper-50 hairline-all p-7 sm:p-12 lg:p-14 relative overflow-hidden shadow-sm">
-        <!-- Decorative subtle navy wash -->
-        <div class="pointer-events-none absolute -top-24 -right-24 w-72 h-72 rounded-full bg-navy-900/[0.04] blur-3xl"></div>
+      <!-- 05 — INTERACTIVE CONTACT SECTION -->
+      <section
+        id="contact"
+        class="max-w-6xl mx-auto px-6 sm:px-10 py-20 sm:py-28 hairline-t reveal"
+      >
+        <div
+          class="rounded-3xl bg-paper-50 hairline-all p-7 sm:p-12 lg:p-14 relative overflow-hidden shadow-sm"
+        >
+          <!-- Decorative subtle navy wash -->
+          <div
+            class="pointer-events-none absolute -top-24 -right-24 w-72 h-72 rounded-full bg-navy-900/[0.04] blur-3xl"
+          ></div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start relative z-10">
-          <!-- Left Column: Invitation & Direct Email Copy -->
-          <div class="lg:col-span-6 space-y-6">
-            <p class="text-[11px] uppercase tracking-[0.2em] text-navy-800 font-semibold">
-              Let’s work together / 05
-            </p>
-            <h2 class="font-serif text-4xl sm:text-5xl lg:text-[3.5rem] leading-[1.04] tracking-editorial font-normal text-navy-900">
-              Let’s make something <span class="italic text-navy-700">transformative.</span>
-            </h2>
-            <p class="text-sm sm:text-base text-navy-500 leading-relaxed max-w-md">
-              Bring me an ambiguous product problem, an AI workflow that needs human clarity, or a 0-to-1 idea ready to be designed and built end-to-end.
-            </p>
+          <div
+            class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start relative z-10"
+          >
+            <!-- Left Column: Invitation & Direct Email Copy -->
+            <div class="lg:col-span-6 space-y-6">
+              <p
+                class="text-[11px] uppercase tracking-[0.2em] text-navy-800 font-semibold"
+              >
+                Let’s work together / 05
+              </p>
+              <h2
+                class="font-serif text-4xl sm:text-5xl lg:text-[3.5rem] leading-[1.04] tracking-editorial font-normal text-navy-900"
+              >
+                Let’s make something
+                <span class="italic text-navy-700">transformative.</span>
+              </h2>
+              <p
+                class="text-sm sm:text-base text-navy-500 leading-relaxed max-w-md"
+              >
+                Bring me an ambiguous product problem, an AI workflow that needs
+                human clarity, or a 0-to-1 idea ready to be designed and built
+                end-to-end.
+              </p>
 
-            <!-- Email Action Bar -->
-            <div class="pt-2 flex flex-wrap items-center gap-3">
-              <button
-                id="copy-email-btn"
-                type="button"
-                onclick="copyEmail()"
-                class="inline-flex items-center gap-2.5 px-5 py-3 rounded-xl bg-paper-100 hover:bg-paper-200 hairline-all text-sm font-semibold text-navy-900 transition-all cursor-pointer active:scale-[0.99]"
-              >
-                <svg class="w-4 h-4 text-navy-700" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                </svg>
-                <span id="copy-email-label">lengomyduyen@gmail.com</span>
-                <span id="copy-badge" class="text-[11px] px-2 py-0.5 rounded-md bg-navy-900/10 text-navy-900 font-mono font-medium">Copy</span>
-              </button>
+              <!-- Email Action Bar -->
+              <div class="pt-2 flex flex-wrap items-center gap-3">
+                <button
+                  id="copy-email-btn"
+                  type="button"
+                  onclick="copyEmail()"
+                  class="inline-flex items-center gap-2.5 px-5 py-3 rounded-xl bg-paper-100 hover:bg-paper-200 hairline-all text-sm font-semibold text-navy-900 transition-all cursor-pointer active:scale-[0.99]"
+                >
+                  <svg
+                    class="w-4 h-4 text-navy-700"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    viewBox="0 0 24 24"
+                  >
+                    <rect
+                      x="9"
+                      y="9"
+                      width="13"
+                      height="13"
+                      rx="2"
+                      ry="2"
+                    ></rect>
+                    <path
+                      d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                    ></path>
+                  </svg>
+                  <span id="copy-email-label">lengomyduyen@gmail.com</span>
+                  <span
+                    id="copy-badge"
+                    class="text-[11px] px-2 py-0.5 rounded-md bg-navy-900/10 text-navy-900 font-mono font-medium"
+                    >Copy</span
+                  >
+                </button>
 
-              <a
-                id="direct-mailto-btn"
-                href="mailto:lengomyduyen@gmail.com?subject=Project%20Inquiry%20%E2%80%94%20AI%20Product%20%26%20UX"
-                class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-navy-900 text-paper-50 hover:bg-navy-800 font-semibold text-sm transition-colors shadow-xs"
-              >
-                <span>Open in Mail</span>
-                <span aria-hidden="true">↗</span>
-              </a>
-            </div>
-          </div>
-
-          <!-- Right Column: Interactive Inquiry Topic Selector & Message Preview -->
-          <div class="lg:col-span-6 bg-paper-100/90 rounded-2xl hairline-all p-6 sm:p-7">
-            <div class="flex items-center justify-between mb-4">
-              <span class="text-xs uppercase tracking-[0.15em] text-navy-500 font-medium">1. Choose a conversation starter</span>
-              <span class="text-[11px] font-mono text-navy-800">Auto-fills draft</span>
-            </div>
-
-            <!-- Prompt Pills -->
-            <div id="prompt-pills" class="flex flex-wrap gap-2 mb-6" role="group" aria-label="Inquiry topics">
-              <button
-                type="button"
-                data-topic="AI Product & UX"
-                class="topic-pill active px-3.5 py-2 rounded-lg text-xs font-semibold transition-all cursor-pointer bg-navy-900 text-paper-50 border border-navy-900"
-              >
-                AI Product &amp; UX
-              </button>
-              <button
-                type="button"
-                data-topic="Design Engineering"
-                class="topic-pill px-3.5 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer bg-paper-50 text-navy-500 hover:text-navy-900 border border-[rgba(11,25,68,0.14)]"
-              >
-                Design Engineering
-              </button>
-              <button
-                type="button"
-                data-topic="0-to-1 MVP"
-                class="topic-pill px-3.5 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer bg-paper-50 text-navy-500 hover:text-navy-900 border border-[rgba(11,25,68,0.14)]"
-              >
-                0-to-1 MVP
-              </button>
-              <button
-                type="button"
-                data-topic="Advisory & Architecture"
-                class="topic-pill px-3.5 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer bg-paper-50 text-navy-500 hover:text-navy-900 border border-[rgba(11,25,68,0.14)]"
-              >
-                Advisory &amp; Architecture
-              </button>
+                <a
+                  id="direct-mailto-btn"
+                  href="mailto:lengomyduyen@gmail.com?subject=Project%20Inquiry%20%E2%80%94%20AI%20Product%20%26%20UX"
+                  class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-navy-900 text-paper-50 hover:bg-navy-800 font-semibold text-sm transition-colors shadow-xs"
+                >
+                  <span>Open in Mail</span>
+                  <span aria-hidden="true">↗</span>
+                </a>
+              </div>
             </div>
 
-            <!-- Interactive Editable Message Preview -->
-            <div class="space-y-2">
-              <div class="flex items-center justify-between text-xs text-navy-500">
-                <span>2. Quick note preview (editable)</span>
+            <!-- Right Column: Interactive Inquiry Topic Selector & Message Preview -->
+            <div
+              class="lg:col-span-6 bg-paper-100/90 rounded-2xl hairline-all p-6 sm:p-7"
+            >
+              <div class="flex items-center justify-between mb-4">
+                <span
+                  class="text-xs uppercase tracking-[0.15em] text-navy-500 font-medium"
+                  >1. Choose a conversation starter</span
+                >
+                <span class="text-[11px] font-mono text-navy-800"
+                  >Auto-fills draft</span
+                >
+              </div>
+
+              <!-- Prompt Pills -->
+              <div
+                id="prompt-pills"
+                class="flex flex-wrap gap-2 mb-6"
+                role="group"
+                aria-label="Inquiry topics"
+              >
                 <button
                   type="button"
-                  onclick="copyDraftMessage()"
-                  id="copy-draft-btn"
-                  class="text-navy-800 hover:text-navy-900 transition-colors cursor-pointer font-semibold underline underline-offset-4"
+                  data-topic="AI Product & UX"
+                  class="topic-pill active px-3.5 py-2 rounded-lg text-xs font-semibold transition-all cursor-pointer bg-navy-900 text-paper-50 border border-navy-900"
                 >
-                  Copy note
+                  AI Product &amp; UX
+                </button>
+                <button
+                  type="button"
+                  data-topic="Design Engineering"
+                  class="topic-pill px-3.5 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer bg-paper-50 text-navy-500 hover:text-navy-900 border border-[rgba(11,25,68,0.14)]"
+                >
+                  Design Engineering
+                </button>
+                <button
+                  type="button"
+                  data-topic="0-to-1 MVP"
+                  class="topic-pill px-3.5 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer bg-paper-50 text-navy-500 hover:text-navy-900 border border-[rgba(11,25,68,0.14)]"
+                >
+                  0-to-1 MVP
+                </button>
+                <button
+                  type="button"
+                  data-topic="Advisory & Architecture"
+                  class="topic-pill px-3.5 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer bg-paper-50 text-navy-500 hover:text-navy-900 border border-[rgba(11,25,68,0.14)]"
+                >
+                  Advisory &amp; Architecture
                 </button>
               </div>
-              <textarea
-                id="inquiry-preview"
-                rows="4"
-                aria-label="Editable inquiry message preview"
-                class="w-full rounded-xl bg-paper-50 hairline-all p-3.5 text-sm text-navy-900 leading-relaxed focus:outline-none focus:border-navy-900 resize-none"
-              ></textarea>
+
+              <!-- Interactive Editable Message Preview -->
+              <div class="space-y-2">
+                <div
+                  class="flex items-center justify-between text-xs text-navy-500"
+                >
+                  <span>2. Quick note preview (editable)</span>
+                  <button
+                    type="button"
+                    onclick="copyDraftMessage()"
+                    id="copy-draft-btn"
+                    class="text-navy-800 hover:text-navy-900 transition-colors cursor-pointer font-semibold underline underline-offset-4"
+                  >
+                    Copy note
+                  </button>
+                </div>
+                <textarea
+                  id="inquiry-preview"
+                  rows="4"
+                  aria-label="Editable inquiry message preview"
+                  class="w-full rounded-xl bg-paper-50 hairline-all p-3.5 text-sm text-navy-900 leading-relaxed focus:outline-none focus:border-navy-900 resize-none"
+                ></textarea>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
-  </main>
+      </section>
+    </main>
 
-  <!-- Footer -->
-  <footer class="max-w-6xl mx-auto px-6 sm:px-10 py-8 hairline-t flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] uppercase tracking-[0.14em] text-navy-500">
-    <span class="text-navy-900 font-semibold">© <span id="year">2026</span> Duyen Le<span class="text-navy-700">.</span></span>
-    <span>AI × Design × Engineering</span>
-  </footer>
-
-  <!-- Interactive Case Study Slide-Over Drawer -->
-  <div
-    id="case-drawer"
-    class="drawer-backdrop fixed inset-0 z-50 bg-navy-950/45 backdrop-blur-xs flex justify-end"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="drawer-title"
-  >
-    <div
-      id="drawer-panel"
-      class="drawer-panel w-full max-w-2xl bg-paper-100 border-l border-[rgba(11,25,68,0.16)] h-full overflow-y-auto p-6 sm:p-10 flex flex-col justify-between shadow-2xl"
+    <!-- Footer -->
+    <footer
+      class="max-w-6xl mx-auto px-6 sm:px-10 py-8 hairline-t flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] uppercase tracking-[0.14em] text-navy-500"
     >
-      <div>
-        <!-- Top Bar -->
-        <div class="flex items-center justify-between pb-6 hairline-b">
-          <div class="flex items-center gap-3">
-            <span id="drawer-index" class="text-xs font-mono font-semibold text-navy-700">01</span>
-            <span class="text-navy-400">/</span>
-            <span id="drawer-category" class="text-xs uppercase tracking-[0.16em] text-navy-500 font-medium">AI Product &amp; UX</span>
+      <span class="text-navy-900 font-semibold"
+        >© <span id="year">2026</span> Duyen Le<span class="text-navy-700"
+          >.</span
+        ></span
+      >
+      <span>AI × Design × Engineering</span>
+    </footer>
+
+    <!-- Interactive Case Study Slide-Over Drawer -->
+    <div
+      id="case-drawer"
+      class="drawer-backdrop fixed inset-0 z-50 bg-navy-950/45 backdrop-blur-xs flex justify-end"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="drawer-title"
+    >
+      <div
+        id="drawer-panel"
+        class="drawer-panel w-full max-w-2xl bg-paper-100 border-l border-[rgba(11,25,68,0.16)] h-full overflow-y-auto p-6 sm:p-10 flex flex-col justify-between shadow-2xl"
+      >
+        <div>
+          <!-- Top Bar -->
+          <div class="flex items-center justify-between pb-6 hairline-b">
+            <div class="flex items-center gap-3">
+              <span
+                id="drawer-index"
+                class="text-xs font-mono font-semibold text-navy-700"
+                >01</span
+              >
+              <span class="text-navy-400">/</span>
+              <span
+                id="drawer-category"
+                class="text-xs uppercase tracking-[0.16em] text-navy-500 font-medium"
+                >AI Product &amp; UX</span
+              >
+            </div>
+            <button
+              id="close-drawer-btn"
+              type="button"
+              onclick="closeDrawer()"
+              aria-label="Close case study details"
+              class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-paper-50 hover:bg-paper-200 hairline-all text-xs font-medium text-navy-900 transition-colors cursor-pointer"
+            >
+              <span>Close</span>
+              <span aria-hidden="true">✕</span>
+            </button>
           </div>
+
+          <!-- Drawer Header -->
+          <div class="mt-8">
+            <h3
+              id="drawer-title"
+              class="font-serif text-3xl sm:text-5xl leading-[1.06] tracking-editorial font-normal text-navy-900"
+            ></h3>
+            <p
+              id="drawer-subtitle"
+              class="mt-3 text-base sm:text-lg text-navy-800 leading-relaxed"
+            ></p>
+          </div>
+
+          <!-- Key Shift Highlight -->
+          <div class="mt-8 p-5 rounded-2xl bg-paper-50 hairline-all shadow-2xs">
+            <div
+              class="text-[11px] uppercase tracking-[0.16em] text-navy-700 font-mono font-semibold mb-2"
+            >
+              The Core Shift
+            </div>
+            <p
+              id="drawer-shift"
+              class="text-sm text-navy-900 leading-relaxed"
+            ></p>
+          </div>
+
+          <!-- Structured Case Study Narrative -->
+          <div class="mt-8 space-y-8">
+            <div>
+              <h4
+                class="text-xs uppercase tracking-[0.18em] text-navy-800 font-semibold mb-2.5"
+              >
+                01 · The Problem
+              </h4>
+              <p
+                id="drawer-problem"
+                class="text-sm sm:text-[15px] text-navy-500 leading-relaxed"
+              ></p>
+            </div>
+
+            <div class="pt-6 hairline-t">
+              <h4
+                class="text-xs uppercase tracking-[0.18em] text-navy-800 font-semibold mb-2.5"
+              >
+                02 · Thinking &amp; UX Decisions
+              </h4>
+              <p
+                id="drawer-ux"
+                class="text-sm sm:text-[15px] text-navy-500 leading-relaxed"
+              ></p>
+            </div>
+
+            <div class="pt-6 hairline-t">
+              <h4
+                class="text-xs uppercase tracking-[0.18em] text-navy-800 font-semibold mb-2.5"
+              >
+                03 · AI &amp; Engineering Architecture
+              </h4>
+              <p
+                id="drawer-architecture"
+                class="text-sm sm:text-[15px] text-navy-500 leading-relaxed"
+              ></p>
+            </div>
+
+            <div class="pt-6 hairline-t">
+              <h4
+                class="text-xs uppercase tracking-[0.18em] text-navy-700 font-semibold mb-2.5"
+              >
+                04 · Outcome &amp; Human Impact
+              </h4>
+              <p
+                id="drawer-outcome"
+                class="text-sm sm:text-[15px] text-navy-900 font-medium leading-relaxed"
+              ></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Drawer Footer Navigation -->
+        <div
+          class="mt-12 pt-6 hairline-t flex flex-wrap items-center justify-between gap-4"
+        >
+          <div id="drawer-tags" class="flex flex-wrap gap-2"></div>
           <button
-            id="close-drawer-btn"
             type="button"
-            onclick="closeDrawer()"
-            aria-label="Close case study details"
-            class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-paper-50 hover:bg-paper-200 hairline-all text-xs font-medium text-navy-900 transition-colors cursor-pointer"
+            onclick="inquireAboutProject()"
+            class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-navy-900 text-paper-50 hover:bg-navy-800 text-xs font-semibold transition-colors cursor-pointer"
           >
-            <span>Close</span>
-            <span aria-hidden="true">✕</span>
+            <span>Discuss a similar project</span>
+            <span aria-hidden="true">↗</span>
           </button>
         </div>
-
-        <!-- Drawer Header -->
-        <div class="mt-8">
-          <h3 id="drawer-title" class="font-serif text-3xl sm:text-5xl leading-[1.06] tracking-editorial font-normal text-navy-900"></h3>
-          <p id="drawer-subtitle" class="mt-3 text-base sm:text-lg text-navy-800 leading-relaxed"></p>
-        </div>
-
-        <!-- Key Shift Highlight -->
-        <div class="mt-8 p-5 rounded-2xl bg-paper-50 hairline-all shadow-2xs">
-          <div class="text-[11px] uppercase tracking-[0.16em] text-navy-700 font-mono font-semibold mb-2">The Core Shift</div>
-          <p id="drawer-shift" class="text-sm text-navy-900 leading-relaxed"></p>
-        </div>
-
-        <!-- Structured Case Study Narrative -->
-        <div class="mt-8 space-y-8">
-          <div>
-            <h4 class="text-xs uppercase tracking-[0.18em] text-navy-800 font-semibold mb-2.5">01 · The Problem</h4>
-            <p id="drawer-problem" class="text-sm sm:text-[15px] text-navy-500 leading-relaxed"></p>
-          </div>
-
-          <div class="pt-6 hairline-t">
-            <h4 class="text-xs uppercase tracking-[0.18em] text-navy-800 font-semibold mb-2.5">02 · Thinking &amp; UX Decisions</h4>
-            <p id="drawer-ux" class="text-sm sm:text-[15px] text-navy-500 leading-relaxed"></p>
-          </div>
-
-          <div class="pt-6 hairline-t">
-            <h4 class="text-xs uppercase tracking-[0.18em] text-navy-800 font-semibold mb-2.5">03 · AI &amp; Engineering Architecture</h4>
-            <p id="drawer-architecture" class="text-sm sm:text-[15px] text-navy-500 leading-relaxed"></p>
-          </div>
-
-          <div class="pt-6 hairline-t">
-            <h4 class="text-xs uppercase tracking-[0.18em] text-navy-700 font-semibold mb-2.5">04 · Outcome &amp; Human Impact</h4>
-            <p id="drawer-outcome" class="text-sm sm:text-[15px] text-navy-900 font-medium leading-relaxed"></p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Drawer Footer Navigation -->
-      <div class="mt-12 pt-6 hairline-t flex flex-wrap items-center justify-between gap-4">
-        <div id="drawer-tags" class="flex flex-wrap gap-2"></div>
-        <button
-          type="button"
-          onclick="inquireAboutProject()"
-          class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-navy-900 text-paper-50 hover:bg-navy-800 text-xs font-semibold transition-colors cursor-pointer"
-        >
-          <span>Discuss a similar project</span>
-          <span aria-hidden="true">↗</span>
-        </button>
       </div>
     </div>
-  </div>
 
-  <!-- Toast Notification -->
-  <div
-    id="toast"
-    role="status"
-    aria-live="polite"
-    class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-4 py-2.5 rounded-full bg-navy-900 text-paper-50 text-xs font-medium shadow-xl opacity-0 pointer-events-none transition-all duration-300 translate-y-2"
-  >
-    Copied to clipboard
-  </div>
+    <!-- Toast Notification -->
+    <div
+      id="toast"
+      role="status"
+      aria-live="polite"
+      class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-4 py-2.5 rounded-full bg-navy-900 text-paper-50 text-xs font-medium shadow-xl opacity-0 pointer-events-none transition-all duration-300 translate-y-2"
+    >
+      Copied to clipboard
+    </div>
 
-  <script>
-    // Set current year
-    document.getElementById('year').textContent = new Date().getFullYear();
+    <script>
+      // Set current year
+      document.getElementById("year").textContent = new Date().getFullYear();
 
-    // Case Studies Data — tailored to Duyen Le's Design -> UX -> Fullstack -> AI positioning
-    const caseStudies = [
-      {
-        id: 'atelier-ai',
-        index: '01',
-        filterGroup: 'AI & Agents',
-        category: 'AI Co-Creation × Spatial Canvas',
-        title: 'Lumina — Multimodal Design & Critique Canvas',
-        summary: 'Replacing intimidating prompt engineering with direct visual manipulation, live design-token grounding, and contextual AI art direction.',
-        shift: 'Moved away from linear chat threads to a spatial canvas where designers highlight any region to explore layout, hierarchy, and copy variations in context.',
-        problem: 'Product teams using generative AI for early visual exploration were stuck in repetitive text-prompt loops that stripped away design intent, grid discipline, and brand consistency.',
-        ux: 'Drawing on my graphic design roots, I designed an infinite tactile canvas with inline annotations, side-by-side "diff" lenses, and progressive disclosure—so AI suggestions feel like collaborating with a thoughtful art director rather than debugging a terminal.',
-        architecture: 'Built a real-time React/TypeScript canvas synced with a streaming multimodal orchestration pipeline. Structured JSON schemas constrain model outputs directly to valid design tokens and responsive layout primitives with sub-second optimistic UI updates.',
-        outcome: 'Cut early concept exploration cycles from days to hours while keeping human taste and typographic precision firmly in control.',
-        tags: ['Spatial UX', 'Multimodal AI', 'React & TypeScript', 'Design Systems']
-      },
-      {
-        id: 'synthesis-research',
-        index: '02',
-        filterGroup: 'Product & UX',
-        category: 'Applied AI × Knowledge Architecture',
-        title: 'Vespera — Grounded Research & Decision Intelligence',
-        summary: 'Turning thousands of messy user interviews, support logs, and product docs into traceable, verifiable insights you can interrogate.',
-        shift: 'Instead of a black-box summary that hides nuance, every synthesized claim links directly to timestamped audio/text evidence with confidence signals.',
-        problem: 'Product researchers and founders had hundreds of hours of qualitative interviews trapped in folders, yet struggled to trust generic LLM summaries due to hallucination anxiety and loss of user voice.',
-        ux: 'Designed a calm two-pane reading and synthesis workspace: conversational inquiry on the left, living evidence cards on the right. Hovering over any insight illuminates the exact source quote, preserving emotional context.',
-        architecture: 'Engineered a hybrid semantic + lexical retrieval pipeline (RAG) with chunk-level citation tracking, streaming token rendering, and semantic clustering—wrapped in a responsive, keyboard-first frontend.',
-        outcome: 'Adopted as the daily decision hub for product discovery, enabling teams to trace every roadmap bet back to real customer evidence in seconds.',
-        tags: ['Hybrid RAG', 'Citation UX', 'Fullstack Next.js', 'Information Architecture']
-      },
-      {
-        id: 'prism-system',
-        index: '03',
-        filterGroup: 'Design Systems',
-        category: 'Design Engineering × Fullstack Platform',
-        title: 'Kestrel — Adaptive Multi-Brand Design System & Studio',
-        summary: 'Unifying fragmented frontend codebases and Figma libraries into a single living component architecture with automated accessibility checks.',
-        shift: 'Bridged the chronic handoff gap between design and engineering by treating design tokens and accessible interaction primitives as a single source of truth.',
-        problem: 'Across multiple customer-facing web products, duplicated UI components caused visual drift, slow feature velocity, and inconsistent keyboard/screen-reader accessibility.',
-        ux: 'Audited core user flows to consolidate 40+ inconsistent patterns into 18 composable, expressive primitives—complete with interactive documentation, motion guidelines, and live theme previews.',
-        architecture: 'Architected a zero-runtime-overhead token pipeline paired with headless accessible React primitives, automated visual regression testing, and an interactive playground for designers and engineers.',
-        outcome: 'Reduced UI build time by 45% across product squads and achieved WCAG AA compliance across flagship customer journeys.',
-        tags: ['Design Engineering', 'Component Architecture', 'Accessibility', 'Frontend Craft']
-      },
-      {
-        id: 'pulse-agentic',
-        index: '04',
-        filterGroup: 'AI & Agents',
-        category: 'Human-in-the-Loop AI × Workflow UX',
-        title: 'Cadenza — Calm Autonomous Operations Copilot',
-        summary: 'Designing transparent human-in-the-loop checkpoints for multi-step AI agents handling complex customer and operational workflows.',
-        shift: 'Transformed opaque background automation into an inspectable timeline where humans approve high-leverage actions with one keystroke.',
-        problem: 'Operations teams hesitated to trust autonomous agents because errors happened silently, and recovering from a wrong action required manual cleanup across three tools.',
-        ux: 'Created an editorial "decision queue" interface that surfaces only anomalies and high-impact drafts—showing the agent’s reasoning steps, proposed payload, and instant undo controls.',
-        architecture: 'Developed an event-driven fullstack architecture streaming agent state transitions via Server-Sent Events (SSE), backed by deterministic tool-calling guardrails and audit logs.',
-        outcome: 'Increased operator trust and throughput by 3x while maintaining full human oversight over sensitive customer communications.',
-        tags: ['Agentic UX', 'Streaming UI', 'Fullstack Architecture', 'Human-in-the-Loop']
-      }
-    ];
+      // Case Studies Data — tailored to Duyen Le's Design -> UX -> Fullstack -> AI positioning
+      const caseStudies = [
+        {
+          id: "atelier-ai",
+          index: "01",
+          filterGroup: "AI & Agents",
+          category: "AI Co-Creation × Spatial Canvas",
+          title: "Lumina — Multimodal Design & Critique Canvas",
+          summary:
+            "Replacing intimidating prompt engineering with direct visual manipulation, live design-token grounding, and contextual AI art direction.",
+          shift:
+            "Moved away from linear chat threads to a spatial canvas where designers highlight any region to explore layout, hierarchy, and copy variations in context.",
+          problem:
+            "Product teams using generative AI for early visual exploration were stuck in repetitive text-prompt loops that stripped away design intent, grid discipline, and brand consistency.",
+          ux: 'Drawing on my graphic design roots, I designed an infinite tactile canvas with inline annotations, side-by-side "diff" lenses, and progressive disclosure—so AI suggestions feel like collaborating with a thoughtful art director rather than debugging a terminal.',
+          architecture:
+            "Built a real-time React/TypeScript canvas synced with a streaming multimodal orchestration pipeline. Structured JSON schemas constrain model outputs directly to valid design tokens and responsive layout primitives with sub-second optimistic UI updates.",
+          outcome:
+            "Cut early concept exploration cycles from days to hours while keeping human taste and typographic precision firmly in control.",
+          tags: [
+            "Spatial UX",
+            "Multimodal AI",
+            "React & TypeScript",
+            "Design Systems",
+          ],
+        },
+        {
+          id: "synthesis-research",
+          index: "02",
+          filterGroup: "Product & UX",
+          category: "Applied AI × Knowledge Architecture",
+          title: "Vespera — Grounded Research & Decision Intelligence",
+          summary:
+            "Turning thousands of messy user interviews, support logs, and product docs into traceable, verifiable insights you can interrogate.",
+          shift:
+            "Instead of a black-box summary that hides nuance, every synthesized claim links directly to timestamped audio/text evidence with confidence signals.",
+          problem:
+            "Product researchers and founders had hundreds of hours of qualitative interviews trapped in folders, yet struggled to trust generic LLM summaries due to hallucination anxiety and loss of user voice.",
+          ux: "Designed a calm two-pane reading and synthesis workspace: conversational inquiry on the left, living evidence cards on the right. Hovering over any insight illuminates the exact source quote, preserving emotional context.",
+          architecture:
+            "Engineered a hybrid semantic + lexical retrieval pipeline (RAG) with chunk-level citation tracking, streaming token rendering, and semantic clustering—wrapped in a responsive, keyboard-first frontend.",
+          outcome:
+            "Adopted as the daily decision hub for product discovery, enabling teams to trace every roadmap bet back to real customer evidence in seconds.",
+          tags: [
+            "Hybrid RAG",
+            "Citation UX",
+            "Fullstack Next.js",
+            "Information Architecture",
+          ],
+        },
+        {
+          id: "prism-system",
+          index: "03",
+          filterGroup: "Design Systems",
+          category: "Design Engineering × Fullstack Platform",
+          title: "Kestrel — Adaptive Multi-Brand Design System & Studio",
+          summary:
+            "Unifying fragmented frontend codebases and Figma libraries into a single living component architecture with automated accessibility checks.",
+          shift:
+            "Bridged the chronic handoff gap between design and engineering by treating design tokens and accessible interaction primitives as a single source of truth.",
+          problem:
+            "Across multiple customer-facing web products, duplicated UI components caused visual drift, slow feature velocity, and inconsistent keyboard/screen-reader accessibility.",
+          ux: "Audited core user flows to consolidate 40+ inconsistent patterns into 18 composable, expressive primitives—complete with interactive documentation, motion guidelines, and live theme previews.",
+          architecture:
+            "Architected a zero-runtime-overhead token pipeline paired with headless accessible React primitives, automated visual regression testing, and an interactive playground for designers and engineers.",
+          outcome:
+            "Reduced UI build time by 45% across product squads and achieved WCAG AA compliance across flagship customer journeys.",
+          tags: [
+            "Design Engineering",
+            "Component Architecture",
+            "Accessibility",
+            "Frontend Craft",
+          ],
+        },
+        {
+          id: "pulse-agentic",
+          index: "04",
+          filterGroup: "AI & Agents",
+          category: "Human-in-the-Loop AI × Workflow UX",
+          title: "Cadenza — Calm Autonomous Operations Copilot",
+          summary:
+            "Designing transparent human-in-the-loop checkpoints for multi-step AI agents handling complex customer and operational workflows.",
+          shift:
+            "Transformed opaque background automation into an inspectable timeline where humans approve high-leverage actions with one keystroke.",
+          problem:
+            "Operations teams hesitated to trust autonomous agents because errors happened silently, and recovering from a wrong action required manual cleanup across three tools.",
+          ux: 'Created an editorial "decision queue" interface that surfaces only anomalies and high-impact drafts—showing the agent’s reasoning steps, proposed payload, and instant undo controls.',
+          architecture:
+            "Developed an event-driven fullstack architecture streaming agent state transitions via Server-Sent Events (SSE), backed by deterministic tool-calling guardrails and audit logs.",
+          outcome:
+            "Increased operator trust and throughput by 3x while maintaining full human oversight over sensitive customer communications.",
+          tags: [
+            "Agentic UX",
+            "Streaming UI",
+            "Fullstack Architecture",
+            "Human-in-the-Loop",
+          ],
+        },
+      ];
 
-    // Render Case Study Cards with Filter Support
-    const gridEl = document.getElementById('case-studies-grid');
+      // Render Case Study Cards with Filter Support
+      const gridEl = document.getElementById("case-studies-grid");
 
-    function renderCaseStudies(filter = 'All') {
-      gridEl.innerHTML = '';
-      const filtered = filter === 'All'
-        ? caseStudies
-        : caseStudies.filter(study => study.filterGroup === filter);
+      function renderCaseStudies(filter = "All") {
+        gridEl.innerHTML = "";
+        const filtered =
+          filter === "All"
+            ? caseStudies
+            : caseStudies.filter((study) => study.filterGroup === filter);
 
-      filtered.forEach((study, idx) => {
-        const card = document.createElement('article');
-        card.className = 'group relative rounded-2xl bg-paper-50/90 hover:bg-paper-50 hairline-all p-7 sm:p-9 transition-all duration-300 flex flex-col justify-between cursor-pointer shadow-2xs hover:shadow-md hover:border-navy-900/30 hover:-translate-y-1';
-        card.setAttribute('tabindex', '0');
-        card.setAttribute('role', 'button');
-        card.setAttribute('aria-label', `Open case study: ${study.title}`);
+        filtered.forEach((study, idx) => {
+          const card = document.createElement("article");
+          card.className =
+            "group relative rounded-2xl bg-paper-50/90 hover:bg-paper-50 hairline-all p-7 sm:p-9 transition-all duration-300 flex flex-col justify-between cursor-pointer shadow-2xs hover:shadow-md hover:border-navy-900/30 hover:-translate-y-1";
+          card.setAttribute("tabindex", "0");
+          card.setAttribute("role", "button");
+          card.setAttribute("aria-label", `Open case study: ${study.title}`);
 
-        card.innerHTML = `
+          card.innerHTML = `
           <div>
             <div class="flex items-center justify-between gap-4 mb-6">
               <span class="text-xs font-mono font-medium text-navy-700">${study.index} — ${study.category}</span>
@@ -729,11 +1084,16 @@
 
           <div class="mt-8 pt-5 hairline-t flex items-center justify-between gap-3">
             <div class="flex flex-wrap gap-1.5">
-              ${study.tags.slice(0, 3).map(tag => `
+              ${study.tags
+                .slice(0, 3)
+                .map(
+                  (tag) => `
                 <span class="text-[11px] px-2.5 py-1 rounded-md bg-paper-100 text-navy-600 border border-[rgba(11,25,68,0.09)]">
                   ${tag}
                 </span>
-              `).join('')}
+              `,
+                )
+                .join("")}
             </div>
             <span class="text-xs font-semibold text-navy-900 group-hover:translate-x-0.5 transition-transform whitespace-nowrap">
               Read story →
@@ -741,191 +1101,255 @@
           </div>
         `;
 
-        card.addEventListener('click', () => openDrawer(study));
-        card.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            openDrawer(study);
-          }
+          card.addEventListener("click", () => openDrawer(study));
+          card.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              openDrawer(study);
+            }
+          });
+
+          gridEl.appendChild(card);
         });
+      }
 
-        gridEl.appendChild(card);
-      });
-    }
+      // Initial render (guarded: the Selected Work section is currently commented out)
+      if (gridEl) renderCaseStudies("All");
 
-    // Initial render (guarded: the Selected Work section is currently commented out)
-    if (gridEl) renderCaseStudies('All');
+      // Filter Pill Listeners
+      document.querySelectorAll(".filter-pill").forEach((pill) => {
+        pill.addEventListener("click", () => {
+          document.querySelectorAll(".filter-pill").forEach((p) => {
+            p.classList.remove(
+              "bg-navy-900",
+              "text-paper-50",
+              "border-navy-900",
+              "font-semibold",
+            );
+            p.classList.add(
+              "bg-paper-50",
+              "text-navy-500",
+              "hairline-all",
+              "font-medium",
+            );
+          });
+          pill.classList.remove(
+            "bg-paper-50",
+            "text-navy-500",
+            "hairline-all",
+            "font-medium",
+          );
+          pill.classList.add(
+            "bg-navy-900",
+            "text-paper-50",
+            "border-navy-900",
+            "font-semibold",
+          );
 
-    // Filter Pill Listeners
-    document.querySelectorAll('.filter-pill').forEach(pill => {
-      pill.addEventListener('click', () => {
-        document.querySelectorAll('.filter-pill').forEach(p => {
-          p.classList.remove('bg-navy-900', 'text-paper-50', 'border-navy-900', 'font-semibold');
-          p.classList.add('bg-paper-50', 'text-navy-500', 'hairline-all', 'font-medium');
+          renderCaseStudies(pill.getAttribute("data-filter"));
         });
-        pill.classList.remove('bg-paper-50', 'text-navy-500', 'hairline-all', 'font-medium');
-        pill.classList.add('bg-navy-900', 'text-paper-50', 'border-navy-900', 'font-semibold');
-
-        renderCaseStudies(pill.getAttribute('data-filter'));
       });
-    });
 
-    // Interactive Case Study Drawer Logic
-    let activeStudy = null;
-    const drawerBackdrop = document.getElementById('case-drawer');
+      // Interactive Case Study Drawer Logic
+      let activeStudy = null;
+      const drawerBackdrop = document.getElementById("case-drawer");
 
-    function openDrawer(study) {
-      activeStudy = study;
-      document.getElementById('drawer-index').textContent = study.index;
-      document.getElementById('drawer-category').textContent = study.category;
-      document.getElementById('drawer-title').textContent = study.title;
-      document.getElementById('drawer-subtitle').textContent = study.summary;
-      document.getElementById('drawer-shift').textContent = study.shift;
-      document.getElementById('drawer-problem').textContent = study.problem;
-      document.getElementById('drawer-ux').textContent = study.ux;
-      document.getElementById('drawer-architecture').textContent = study.architecture;
-      document.getElementById('drawer-outcome').textContent = study.outcome;
+      function openDrawer(study) {
+        activeStudy = study;
+        document.getElementById("drawer-index").textContent = study.index;
+        document.getElementById("drawer-category").textContent = study.category;
+        document.getElementById("drawer-title").textContent = study.title;
+        document.getElementById("drawer-subtitle").textContent = study.summary;
+        document.getElementById("drawer-shift").textContent = study.shift;
+        document.getElementById("drawer-problem").textContent = study.problem;
+        document.getElementById("drawer-ux").textContent = study.ux;
+        document.getElementById("drawer-architecture").textContent =
+          study.architecture;
+        document.getElementById("drawer-outcome").textContent = study.outcome;
 
-      const tagsContainer = document.getElementById('drawer-tags');
-      tagsContainer.innerHTML = study.tags.map(tag => `
+        const tagsContainer = document.getElementById("drawer-tags");
+        tagsContainer.innerHTML = study.tags
+          .map(
+            (tag) => `
         <span class="text-[11px] font-mono px-2.5 py-1 rounded-md bg-paper-50 text-navy-600 hairline-all">${tag}</span>
-      `).join('');
+      `,
+          )
+          .join("");
 
-      drawerBackdrop.classList.add('open');
-      document.body.style.overflow = 'hidden';
-      document.getElementById('close-drawer-btn').focus();
-    }
-
-    function closeDrawer() {
-      drawerBackdrop.classList.remove('open');
-      document.body.style.overflow = '';
-    }
-
-    drawerBackdrop.addEventListener('click', (e) => {
-      if (e.target === drawerBackdrop) {
-        closeDrawer();
+        drawerBackdrop.classList.add("open");
+        document.body.style.overflow = "hidden";
+        document.getElementById("close-drawer-btn").focus();
       }
-    });
 
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && drawerBackdrop.classList.contains('open')) {
-        closeDrawer();
+      function closeDrawer() {
+        drawerBackdrop.classList.remove("open");
+        document.body.style.overflow = "";
       }
-    });
 
-    function inquireAboutProject() {
-      if (!activeStudy) return;
-      const studyTitle = activeStudy.title;
-      closeDrawer();
-      const contactSection = document.getElementById('contact');
-      contactSection.scrollIntoView({ behavior: 'smooth' });
-      const previewBox = document.getElementById('inquiry-preview');
-      previewBox.value = `Hi Duyen — I loved reading your case study on "${studyTitle}". We’re exploring a similar challenge around AI, UX, and fullstack execution and would love to chat.`;
-      updateMailtoLink('AI Product & UX', previewBox.value);
-    }
-
-    // Interactive Contact Prompt Selector & Mailto Builder
-    const topicTemplates = {
-      'AI Product & UX': 'Hi Duyen — we’re building an AI-powered product and want the experience to feel genuinely intuitive and human, not like a generic chatbot. Would love to explore working together.',
-      'Design Engineering': 'Hi Duyen — we’re looking for someone who bridges high-craft UI/UX design and production frontend architecture to elevate our product experience.',
-      '0-to-1 MVP': 'Hi Duyen — we have an early product concept and need a design-minded AI & fullstack engineer to help shape the UX and build a thoughtful v1.',
-      'Advisory & Architecture': 'Hi Duyen — we’d love your perspective on our product direction, UX flows, and AI/frontend architecture.'
-    };
-
-    const previewTextarea = document.getElementById('inquiry-preview');
-    const mailtoBtn = document.getElementById('direct-mailto-btn');
-    let currentTopic = 'AI Product & UX';
-
-    function updateMailtoLink(topic, bodyText) {
-      const subject = encodeURIComponent(`Project Inquiry — ${topic}`);
-      const body = encodeURIComponent(bodyText);
-      mailtoBtn.href = `mailto:lengomyduyen@gmail.com?subject=${subject}&body=${body}`;
-    }
-
-    // Initialize default inquiry draft
-    previewTextarea.value = topicTemplates[currentTopic];
-    updateMailtoLink(currentTopic, previewTextarea.value);
-
-    previewTextarea.addEventListener('input', () => {
-      updateMailtoLink(currentTopic, previewTextarea.value);
-    });
-
-    document.querySelectorAll('.topic-pill').forEach(pill => {
-      pill.addEventListener('click', () => {
-        document.querySelectorAll('.topic-pill').forEach(p => {
-          p.classList.remove('bg-navy-900', 'text-paper-50', 'border-navy-900', 'font-semibold');
-          p.classList.add('bg-paper-50', 'text-navy-500', 'border-[rgba(11,25,68,0.14)]', 'font-medium');
-        });
-        pill.classList.remove('bg-paper-50', 'text-navy-500', 'border-[rgba(11,25,68,0.14)]', 'font-medium');
-        pill.classList.add('bg-navy-900', 'text-paper-50', 'border-navy-900', 'font-semibold');
-
-        currentTopic = pill.getAttribute('data-topic');
-        previewTextarea.value = topicTemplates[currentTopic];
-        updateMailtoLink(currentTopic, previewTextarea.value);
-      });
-    });
-
-    // Reliable Clipboard Copy Helper
-    function copyTextToClipboard(text, toastMessage) {
-      const tempInput = document.createElement('textarea');
-      tempInput.value = text;
-      tempInput.style.position = 'fixed';
-      tempInput.style.left = '-9999px';
-      document.body.appendChild(tempInput);
-      tempInput.select();
-      try {
-        document.execCommand('copy');
-        showToast(toastMessage);
-      } catch (err) {
-        showToast('Press Ctrl/Cmd+C to copy');
-      }
-      document.body.removeChild(tempInput);
-    }
-
-    function copyEmail() {
-      copyTextToClipboard('lengomyduyen@gmail.com', 'Copied lengomyduyen@gmail.com');
-      const badge = document.getElementById('copy-badge');
-      badge.textContent = 'Copied!';
-      setTimeout(() => {
-        badge.textContent = 'Copy';
-      }, 2200);
-    }
-
-    function copyDraftMessage() {
-      copyTextToClipboard(previewTextarea.value, 'Inquiry note copied to clipboard');
-    }
-
-    let toastTimeout;
-    function showToast(message) {
-      const toast = document.getElementById('toast');
-      toast.textContent = message;
-      toast.classList.remove('opacity-0', 'translate-y-2');
-      toast.classList.add('opacity-100', 'translate-y-0');
-      clearTimeout(toastTimeout);
-      toastTimeout = setTimeout(() => {
-        toast.classList.remove('opacity-100', 'translate-y-0');
-        toast.classList.add('opacity-0', 'translate-y-2');
-      }, 2400);
-    }
-
-    // Subtle Interactive Spotlight Tracking
-    const spotlight = document.getElementById('spotlight');
-    window.addEventListener('pointermove', (e) => {
-      spotlight.style.setProperty('--mouse-x', `${e.clientX}px`);
-      spotlight.style.setProperty('--mouse-y', `${e.clientY}px`);
-    }, { passive: true });
-
-    // Scroll Reveal Observer
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
+      drawerBackdrop.addEventListener("click", (e) => {
+        if (e.target === drawerBackdrop) {
+          closeDrawer();
         }
       });
-    }, { threshold: 0.12 });
 
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-  </script>
-</body>
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && drawerBackdrop.classList.contains("open")) {
+          closeDrawer();
+        }
+      });
+
+      function inquireAboutProject() {
+        if (!activeStudy) return;
+        const studyTitle = activeStudy.title;
+        closeDrawer();
+        const contactSection = document.getElementById("contact");
+        contactSection.scrollIntoView({ behavior: "smooth" });
+        const previewBox = document.getElementById("inquiry-preview");
+        previewBox.value = `Hi Duyen — I loved reading your case study on "${studyTitle}". We’re exploring a similar challenge around AI, UX, and fullstack execution and would love to chat.`;
+        updateMailtoLink("AI Product & UX", previewBox.value);
+      }
+
+      // Interactive Contact Prompt Selector & Mailto Builder
+      const topicTemplates = {
+        "AI Product & UX":
+          "Hi Duyen — we’re building an AI-powered product and want the experience to feel genuinely intuitive and human, not like a generic chatbot. Would love to explore working together.",
+        "Design Engineering":
+          "Hi Duyen — we’re looking for someone who bridges high-craft UI/UX design and production frontend architecture to elevate our product experience.",
+        "0-to-1 MVP":
+          "Hi Duyen — we have an early product concept and need a design-minded AI & fullstack engineer to help shape the UX and build a thoughtful v1.",
+        "Advisory & Architecture":
+          "Hi Duyen — we’d love your perspective on our product direction, UX flows, and AI/frontend architecture.",
+      };
+
+      const previewTextarea = document.getElementById("inquiry-preview");
+      const mailtoBtn = document.getElementById("direct-mailto-btn");
+      let currentTopic = "AI Product & UX";
+
+      function updateMailtoLink(topic, bodyText) {
+        const subject = encodeURIComponent(`Project Inquiry — ${topic}`);
+        const body = encodeURIComponent(bodyText);
+        mailtoBtn.href = `mailto:lengomyduyen@gmail.com?subject=${subject}&body=${body}`;
+      }
+
+      // Initialize default inquiry draft
+      previewTextarea.value = topicTemplates[currentTopic];
+      updateMailtoLink(currentTopic, previewTextarea.value);
+
+      previewTextarea.addEventListener("input", () => {
+        updateMailtoLink(currentTopic, previewTextarea.value);
+      });
+
+      document.querySelectorAll(".topic-pill").forEach((pill) => {
+        pill.addEventListener("click", () => {
+          document.querySelectorAll(".topic-pill").forEach((p) => {
+            p.classList.remove(
+              "bg-navy-900",
+              "text-paper-50",
+              "border-navy-900",
+              "font-semibold",
+            );
+            p.classList.add(
+              "bg-paper-50",
+              "text-navy-500",
+              "border-[rgba(11,25,68,0.14)]",
+              "font-medium",
+            );
+          });
+          pill.classList.remove(
+            "bg-paper-50",
+            "text-navy-500",
+            "border-[rgba(11,25,68,0.14)]",
+            "font-medium",
+          );
+          pill.classList.add(
+            "bg-navy-900",
+            "text-paper-50",
+            "border-navy-900",
+            "font-semibold",
+          );
+
+          currentTopic = pill.getAttribute("data-topic");
+          previewTextarea.value = topicTemplates[currentTopic];
+          updateMailtoLink(currentTopic, previewTextarea.value);
+        });
+      });
+
+      // Reliable Clipboard Copy Helper
+      function copyTextToClipboard(text, toastMessage) {
+        const tempInput = document.createElement("textarea");
+        tempInput.value = text;
+        tempInput.style.position = "fixed";
+        tempInput.style.left = "-9999px";
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        try {
+          document.execCommand("copy");
+          showToast(toastMessage);
+        } catch (err) {
+          showToast("Press Ctrl/Cmd+C to copy");
+        }
+        document.body.removeChild(tempInput);
+      }
+
+      function copyEmail() {
+        copyTextToClipboard(
+          "lengomyduyen@gmail.com",
+          "Copied lengomyduyen@gmail.com",
+        );
+        const badge = document.getElementById("copy-badge");
+        badge.textContent = "Copied!";
+        setTimeout(() => {
+          badge.textContent = "Copy";
+        }, 2200);
+      }
+
+      function copyDraftMessage() {
+        copyTextToClipboard(
+          previewTextarea.value,
+          "Inquiry note copied to clipboard",
+        );
+      }
+
+      let toastTimeout;
+      function showToast(message) {
+        const toast = document.getElementById("toast");
+        toast.textContent = message;
+        toast.classList.remove("opacity-0", "translate-y-2");
+        toast.classList.add("opacity-100", "translate-y-0");
+        clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(() => {
+          toast.classList.remove("opacity-100", "translate-y-0");
+          toast.classList.add("opacity-0", "translate-y-2");
+        }, 2400);
+      }
+
+      // Subtle Interactive Spotlight Tracking
+      const spotlight = document.getElementById("spotlight");
+      window.addEventListener(
+        "pointermove",
+        (e) => {
+          spotlight.style.setProperty("--mouse-x", `${e.clientX}px`);
+          spotlight.style.setProperty("--mouse-y", `${e.clientY}px`);
+        },
+        { passive: true },
+      );
+
+      // Scroll Reveal Observer
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.12 },
+      );
+
+      document
+        .querySelectorAll(".reveal")
+        .forEach((el) => observer.observe(el));
+    </script>
+  </body>
 </html>
