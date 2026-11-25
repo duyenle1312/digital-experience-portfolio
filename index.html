@@ -234,10 +234,39 @@
       }
       @media (hover: none) {
         .spotlight-card::before,
-        .spotlight-card::after,
-        .pixel-screen {
+        .spotlight-card::after {
           display: none;
         }
+        /* Touch: press & hold the hero to reveal — stop the long-press
+           text selection / iOS callout from stealing the gesture */
+        #hero {
+          -webkit-touch-callout: none;
+          -webkit-user-select: none;
+          user-select: none;
+        }
+      }
+
+      .touch-hint {
+        display: none;
+      }
+      @media (hover: none) and (prefers-reduced-motion: no-preference) {
+        .touch-hint {
+          display: flex;
+        }
+      }
+
+      /* SVG arrow icon (replaces the ↗ glyph, which iOS renders as emoji) */
+      .arrow-icon {
+        display: inline-block;
+        width: 0.95em;
+        height: 0.95em;
+        flex-shrink: 0;
+        vertical-align: -0.1em;
+        transition: transform 0.2s ease;
+      }
+      a:hover > .arrow-icon,
+      button:hover > .arrow-icon {
+        transform: translate(1.5px, -1.5px);
       }
 
       .hairline-b {
@@ -370,7 +399,7 @@
             class="inline-flex items-center gap-1 text-navy-900 hover:text-navy-700 transition-colors py-2 font-semibold"
           >
             <span>Get in touch</span>
-            <span aria-hidden="true" class="text-navy-700">↗</span>
+            <svg class="arrow-icon text-navy-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
           </a>
         </nav>
       </div>
@@ -412,7 +441,7 @@
                 class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-navy-900 text-paper-50 hover:bg-navy-800 text-xs sm:text-sm font-semibold transition-colors shadow-2xs"
               >
                 <span>Explore Selected Work</span>
-                <span aria-hidden="true">↗</span>
+                <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
               </a>
               <a
                 href="#about"
@@ -421,6 +450,13 @@
                 <span>Read My Story</span>
               </a>
             </div>
+            <!-- Touch-only hint for the press & hold pixel reveal -->
+            <p
+              class="touch-hint mt-6 items-center gap-2 text-[11px] font-mono tracking-[0.08em] text-navy-500"
+            >
+              <span class="inline-block w-1.5 h-1.5 bg-navy-700"></span>
+              psst — press &amp; hold here to peek underneath
+            </p>
           </div>
 
           <aside
@@ -833,7 +869,7 @@
                   class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-navy-900 text-paper-50 hover:bg-navy-800 font-semibold text-sm transition-colors shadow-xs"
                 >
                   <span>Open in Mail</span>
-                  <span aria-hidden="true">↗</span>
+                  <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
                 </a>
               </div>
             </div>
@@ -1059,7 +1095,7 @@
             class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-navy-900 text-paper-50 hover:bg-navy-800 text-xs font-semibold transition-colors cursor-pointer"
           >
             <span>Discuss a similar project</span>
-            <span aria-hidden="true">↗</span>
+            <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
           </button>
         </div>
       </div>
@@ -1202,7 +1238,7 @@
             <div class="flex items-center justify-between gap-4 mb-6">
               <span class="text-xs font-mono font-medium text-navy-700">${study.index} — ${study.category}</span>
               <span class="w-8 h-8 rounded-full bg-paper-100 hairline-all flex items-center justify-center text-xs text-navy-500 group-hover:bg-navy-900 group-hover:text-paper-50 group-hover:border-navy-900 transition-colors">
-                ↗
+                <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
               </span>
             </div>
             <h3 class="font-serif text-2xl sm:text-3xl tracking-editorial font-normal text-navy-900 group-hover:text-navy-700 transition-colors leading-snug">
@@ -1227,7 +1263,7 @@
                 .join("")}
             </div>
             <span class="text-xs font-semibold text-navy-900 group-hover:translate-x-0.5 transition-transform whitespace-nowrap">
-              Read story →
+              Read story <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </span>
           </div>
         `;
@@ -1489,8 +1525,9 @@
           },
           { passive: true },
         );
-        initPixelReveal();
       }
+      // The hero reveal works with a mouse (hover) and on touch (press & hold)
+      if (!prefersReducedMotion) initPixelReveal();
 
       // ── Hero pixel reveal ─────────────────────────────────────────────
       // A tiny canvas (1 px = PX screen px) is drawn as an indie pixel desktop,
@@ -1504,7 +1541,7 @@
         const scene = document.createElement("canvas");
         const sctx = scene.getContext("2d", { willReadFrequently: true });
 
-        const PX = 6; // screen pixels per "pixel"
+        let PX = 6; // screen pixels per "pixel" (4 on narrow screens)
         const R_MAX = 24; // reveal radius (in pixels) — ~144 screen px
         const EDGE = 14; // width of the dithered + fading edge
         const BAYER = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5];
@@ -1556,9 +1593,10 @@
         let W = 0, H = 0, out = null, sceneData = null;
         let lastSceneDraw = 0;
         const s = {
-          clientX: 0, clientY: 0, // last pointer position
+          clientX: -9999, clientY: -9999, // last pointer position (off-screen)
           x: 0, y: 0, r: 0, targetR: 0, // eased reveal state (pixel units)
           inside: false, running: false,
+          touchHold: false, // true while a finger is pressing & holding
         };
 
         const rect = (x, y, w, h, c) => {
@@ -1606,9 +1644,15 @@
           for (let y = 0; y < H; y += 2)
             for (let x = (y / 2) % 2 ? 2 : 0; x < W; x += 4) rect(x, y, 1, 1, C.dot);
 
-          // Desktop icons (left + right edges)
+          // Phones get a stacked layout so windows don't pile on each other
+          const narrow = W < 140;
+
+          // Desktop icons (left column on desktop, bottom row on phones)
           [["WORK", C.blue], ["IDEAS", C.sky], ["AI", C.blue], ["FUN", C.pink]].forEach(
-            ([label, c], i) => folder(6, 14 + i * 20, c, label),
+            ([label, c], i) =>
+              narrow
+                ? folder(6 + i * 22, H - 24, c, label)
+                : folder(6, 14 + i * 20, c, label),
           );
           if (W > 180) {
             folder(W - 20, 14, C.yellow, "MAIL");
@@ -1616,7 +1660,8 @@
           }
 
           // Terminal
-          const tx = Math.round(W * 0.16), ty = Math.round(H * 0.14);
+          const tx = narrow ? Math.max(2, Math.round((W - 82) / 2)) : Math.round(W * 0.16);
+          const ty = narrow ? 14 : Math.round(H * 0.14);
           win(tx, ty, 82, 42, "TERMINAL");
           text("> HELLO WORLD!", tx + 4, ty + 11, C.navy);
           text("> DESIGN + AI = <3", tx + 4, ty + 18, C.blue);
@@ -1625,7 +1670,8 @@
           if (blink) rect(tx + 8, ty + 32, 3, 5, C.blue);
 
           // Paint window
-          const px = Math.round(W * 0.6), py = Math.round(H * 0.1);
+          const px = narrow ? W - 56 : Math.round(W * 0.6);
+          const py = narrow ? Math.round(H * 0.36) : Math.round(H * 0.1);
           win(px, py, 52, 44, "PAINT");
           sprite(HEART, px + 15, py + 12, C.pink, 3);
           [C.navy, C.blue, C.sky, C.pink, C.yellow, C.green].forEach((c, i) =>
@@ -1633,7 +1679,8 @@
           );
 
           // Loading dialog with stepped progress bar
-          const lx = Math.round(W * 0.4), ly = Math.round(H * 0.64);
+          const lx = narrow ? 4 : Math.round(W * 0.4);
+          const ly = narrow ? Math.round(H * 0.66) : Math.round(H * 0.64);
           win(lx, ly, 72, 26, "LOADING");
           text("BREWING IDEAS...", lx + 4, ly + 11, C.navy);
           rect(lx + 4, ly + 18, 64, 5, C.navy);
@@ -1670,7 +1717,7 @@
           rect(0, 0, W, 8, C.white);
           rect(0, 8, W, 1, C.navy);
           text("DUYEN.OS", 4, 2, C.navy);
-          text("FILE  EDIT  VIEW  HELP", 42, 2, C.blue);
+          if (!narrow) text("FILE  EDIT  VIEW  HELP", 42, 2, C.blue);
           const d = new Date();
           const clock =
             String(d.getHours()).padStart(2, "0") +
@@ -1685,6 +1732,7 @@
 
         function resize() {
           const r = wrap.getBoundingClientRect();
+          PX = r.width < 640 ? 4 : 6;
           W = Math.max(1, Math.ceil(r.width / PX));
           H = Math.max(1, Math.ceil(r.height / PX));
           canvas.width = scene.width = W;
@@ -1780,9 +1828,11 @@
           }
         }
 
+        // Mouse / trackpad / pen: reveal follows the pointer on hover
         window.addEventListener(
           "pointermove",
           (e) => {
+            if (e.pointerType === "touch") return; // touch handled below
             s.clientX = e.clientX;
             s.clientY = e.clientY;
             wake();
@@ -1790,6 +1840,68 @@
           { passive: true },
         );
         window.addEventListener("scroll", wake, { passive: true });
+
+        // Touch: press & hold in the hero (~300ms) to open the reveal, drag to
+        // move it, lift to close. A quick swipe still scrolls the page normally.
+        const HOLD_MS = 300;
+        const MOVE_SLOP = 10; // px of finger drift allowed before it's a scroll
+        let holdTimer = null;
+        let startX = 0, startY = 0;
+        const endHold = () => {
+          clearTimeout(holdTimer);
+          holdTimer = null;
+          if (!s.touchHold) return false;
+          s.touchHold = false;
+          s.clientX = s.clientY = -9999;
+          wake();
+          return true;
+        };
+        hero.addEventListener(
+          "touchstart",
+          (e) => {
+            if (e.touches.length !== 1) return endHold();
+            const t = e.touches[0];
+            startX = t.clientX;
+            startY = t.clientY;
+            clearTimeout(holdTimer);
+            holdTimer = setTimeout(() => {
+              holdTimer = null;
+              s.touchHold = true;
+              s.clientX = startX;
+              s.clientY = startY;
+              navigator.vibrate?.(8); // tiny haptic tick where supported
+              wake();
+            }, HOLD_MS);
+          },
+          { passive: true },
+        );
+        hero.addEventListener(
+          "touchmove",
+          (e) => {
+            const t = e.touches[0];
+            if (s.touchHold) {
+              e.preventDefault(); // drag moves the reveal instead of scrolling
+              s.clientX = t.clientX;
+              s.clientY = t.clientY;
+              wake();
+            } else if (
+              holdTimer &&
+              Math.hypot(t.clientX - startX, t.clientY - startY) > MOVE_SLOP
+            ) {
+              clearTimeout(holdTimer); // finger moved: it's a scroll, not a hold
+              holdTimer = null;
+            }
+          },
+          { passive: false },
+        );
+        hero.addEventListener("touchend", (e) => {
+          // After a hold, don't let lifting the finger "click" a link
+          if (endHold()) e.preventDefault();
+        });
+        hero.addEventListener("touchcancel", endHold);
+        hero.addEventListener("contextmenu", (e) => {
+          if (s.touchHold || holdTimer) e.preventDefault(); // no long-press menu
+        });
         document.documentElement.addEventListener("pointerleave", () => {
           s.clientX = s.clientY = -9999;
           wake();
