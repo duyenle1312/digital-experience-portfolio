@@ -112,12 +112,25 @@
       }
 
       .spotlight-layer {
-        background: radial-gradient(
-          680px circle at var(--mouse-x, 50%) var(--mouse-y, 28%),
-          rgba(22, 54, 128, 0.065),
-          rgba(11, 25, 68, 0.025) 42%,
-          transparent 75%
-        );
+        /* Glow tinted with navy-700 (#1D4ED8), the same blue as the hero's
+           "Human-centered." — a soft core plus a wider, fainter halo */
+        background:
+          radial-gradient(
+            220px circle at var(--mouse-x, 50%) var(--mouse-y, 28%),
+            rgba(29, 78, 216, 0.1),
+            transparent 70%
+          ),
+          radial-gradient(
+            420px circle at calc(var(--mouse-x, 50%) + 60px)
+              calc(var(--mouse-y, 28%) - 40px),
+            rgba(29, 78, 216, 0.05),
+            transparent 65%
+          ),
+          radial-gradient(
+            600px circle at var(--mouse-x, 50%) var(--mouse-y, 28%),
+            rgba(29, 78, 216, 0.035),
+            transparent 75%
+          );
         transition: opacity 0.4s ease;
       }
 
@@ -630,7 +643,7 @@
         class="max-w-6xl mx-auto px-6 sm:px-10 py-20 sm:py-28 hairline-t reveal"
       >
         <div
-          class="rounded-3xl bg-paper-50 hairline-all p-7 sm:p-12 lg:p-14 relative overflow-hidden shadow-sm"
+          class="rounded-3xl bg-paper-50 hairline-all p-5 sm:p-12 lg:p-14 relative overflow-hidden shadow-sm"
         >
           <!-- Decorative subtle navy wash -->
           <div
@@ -641,14 +654,14 @@
             class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start relative z-10"
           >
             <!-- Left Column: Invitation & Direct Email Copy -->
-            <div class="lg:col-span-6 space-y-6">
+            <div class="lg:col-span-6 space-y-6 min-w-0">
               <p
                 class="text-[11px] uppercase tracking-[0.2em] text-navy-800 font-semibold"
               >
                 Let’s work together / 05
               </p>
               <h2
-                class="font-serif text-4xl sm:text-5xl lg:text-[3.5rem] leading-[1.04] tracking-editorial font-normal text-navy-900"
+                class="font-serif text-[2.25rem] sm:text-5xl lg:text-[3.5rem] leading-[1.04] tracking-editorial font-normal text-navy-900"
               >
                 Let’s make something
                 <span class="italic text-navy-700">transformative.</span>
@@ -662,15 +675,17 @@
               </p>
 
               <!-- Email Action Bar -->
-              <div class="pt-2 flex flex-wrap items-center gap-3">
+              <div
+                class="pt-2 flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-3"
+              >
                 <button
                   id="copy-email-btn"
                   type="button"
                   onclick="copyEmail()"
-                  class="inline-flex items-center gap-2.5 px-5 py-3 rounded-xl bg-paper-100 hover:bg-paper-200 hairline-all text-sm font-semibold text-navy-900 transition-all cursor-pointer active:scale-[0.99]"
+                  class="w-full sm:w-auto min-w-0 inline-flex items-center justify-between sm:justify-start gap-2.5 px-4 sm:px-5 py-3 rounded-xl bg-paper-100 hover:bg-paper-200 hairline-all text-sm font-semibold text-navy-900 transition-all cursor-pointer active:scale-[0.99]"
                 >
                   <svg
-                    class="w-4 h-4 text-navy-700"
+                    class="w-4 h-4 shrink-0 text-navy-700"
                     fill="none"
                     stroke="currentColor"
                     stroke-width="1.8"
@@ -688,10 +703,14 @@
                       d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
                     ></path>
                   </svg>
-                  <span id="copy-email-label">lengomyduyen@gmail.com</span>
+                  <span
+                    id="copy-email-label"
+                    class="min-w-0 flex-1 sm:flex-none truncate text-left"
+                    >lengomyduyen@gmail.com</span
+                  >
                   <span
                     id="copy-badge"
-                    class="text-[11px] px-2 py-0.5 rounded-md bg-navy-900/10 text-navy-900 font-mono font-medium"
+                    class="shrink-0 text-[11px] px-2 py-0.5 rounded-md bg-navy-900/10 text-navy-900 font-mono font-medium"
                     >Copy</span
                   >
                 </button>
@@ -699,7 +718,7 @@
                 <a
                   id="direct-mailto-btn"
                   href="mailto:lengomyduyen@gmail.com?subject=Project%20Inquiry%20%E2%80%94%20AI%20Product%20%26%20UX"
-                  class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-navy-900 text-paper-50 hover:bg-navy-800 font-semibold text-sm transition-colors shadow-xs"
+                  class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-navy-900 text-paper-50 hover:bg-navy-800 font-semibold text-sm transition-colors shadow-xs"
                 >
                   <span>Open in Mail</span>
                   <span aria-hidden="true">↗</span>
@@ -709,9 +728,11 @@
 
             <!-- Right Column: Interactive Inquiry Topic Selector & Message Preview -->
             <div
-              class="lg:col-span-6 bg-paper-100/90 rounded-2xl hairline-all p-6 sm:p-7"
+              class="lg:col-span-6 min-w-0 bg-paper-100/90 rounded-2xl hairline-all p-4 sm:p-7"
             >
-              <div class="flex items-center justify-between mb-4">
+              <div
+                class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-4"
+              >
                 <span
                   class="text-xs uppercase tracking-[0.15em] text-navy-500 font-medium"
                   >1. Choose a conversation starter</span
@@ -761,7 +782,7 @@
               <!-- Interactive Editable Message Preview -->
               <div class="space-y-2">
                 <div
-                  class="flex items-center justify-between text-xs text-navy-500"
+                  class="flex items-center justify-between gap-3 text-xs text-navy-500"
                 >
                   <span>2. Quick note preview (editable)</span>
                   <button
@@ -777,7 +798,7 @@
                   id="inquiry-preview"
                   rows="4"
                   aria-label="Editable inquiry message preview"
-                  class="w-full rounded-xl bg-paper-50 hairline-all p-3.5 text-sm text-navy-900 leading-relaxed focus:outline-none focus:border-navy-900 resize-none"
+                  class="w-full rounded-xl bg-paper-50 hairline-all p-3.5 text-base sm:text-sm text-navy-900 leading-relaxed focus:outline-none focus:border-navy-900 resize-none"
                 ></textarea>
               </div>
             </div>
