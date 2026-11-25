@@ -134,6 +134,112 @@
         transition: opacity 0.4s ease;
       }
 
+      /* Spotlight cards — border + faint surface glow that follows the cursor.
+         JS sets --cx / --cy (cursor position relative to the card). */
+      .spotlight-card {
+        position: relative;
+        isolation: isolate;
+      }
+      .spotlight-card::before,
+      .spotlight-card::after {
+        content: "";
+        position: absolute;
+        border-radius: inherit;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.35s ease;
+      }
+      /* Border ring: gradient masked down to a 1px outline */
+      .spotlight-card::before {
+        inset: -1px;
+        padding: 1px;
+        background: radial-gradient(
+          220px circle at var(--cx, -999px) var(--cy, -999px),
+          rgba(29, 78, 216, 0.75),
+          rgba(29, 78, 216, 0.15) 45%,
+          transparent 70%
+        );
+        -webkit-mask:
+          linear-gradient(#000 0 0) content-box,
+          linear-gradient(#000 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        z-index: 1;
+      }
+      /* Surface wash (sits under content, above the card background) */
+      .spotlight-card::after {
+        inset: 0;
+        background: radial-gradient(
+          320px circle at var(--cx, -999px) var(--cy, -999px),
+          rgba(29, 78, 216, 0.06),
+          transparent 70%
+        );
+        z-index: -1;
+      }
+      .spotlight-card:hover::before,
+      .spotlight-card:hover::after {
+        opacity: 1;
+      }
+
+      /* Hero pixel reveal — an indie pixel desktop under the cursor */
+      .pixel-screen {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        width: 100vw;
+        transform: translateX(-50%);
+        overflow: hidden;
+        pointer-events: none;
+        z-index: 0;
+      }
+      /* Cut a hole in the hero text that matches the pixel reveal */
+      #hero-content.is-revealing {
+        -webkit-mask-image: radial-gradient(
+          circle at var(--hx, -999px) var(--hy, -999px),
+          transparent var(--hr-in, 0px),
+          #000 var(--hr-out, 0px)
+        );
+        mask-image: radial-gradient(
+          circle at var(--hx, -999px) var(--hy, -999px),
+          transparent var(--hr-in, 0px),
+          #000 var(--hr-out, 0px)
+        );
+      }
+      .pixel-screen canvas {
+        display: block;
+        image-rendering: crisp-edges;
+        image-rendering: pixelated;
+      }
+
+      /* Respect reduced-motion + touch devices: no cursor-driven effects */
+      @media (prefers-reduced-motion: reduce) {
+        .spotlight-layer {
+          background: radial-gradient(
+            600px circle at 50% 28%,
+            rgba(29, 78, 216, 0.04),
+            transparent 75%
+          );
+        }
+        .spotlight-card::before,
+        .spotlight-card::after,
+        .pixel-screen {
+          display: none;
+        }
+        .reveal {
+          opacity: 1;
+          transform: none;
+          transition: none;
+        }
+      }
+      @media (hover: none) {
+        .spotlight-card::before,
+        .spotlight-card::after,
+        .pixel-screen {
+          display: none;
+        }
+      }
+
       .hairline-b {
         border-bottom: 1px solid var(--border-hairline);
       }
@@ -273,10 +379,16 @@
     <main class="relative z-10">
       <!-- 01 — HERO SECTION -->
       <section
-        class="max-w-6xl mx-auto px-6 sm:px-10 pt-16 sm:pt-24 pb-20 sm:pb-28"
+        id="hero"
+        class="relative max-w-6xl mx-auto px-6 sm:px-10 pt-16 sm:pt-24 pb-20 sm:pb-28"
       >
+        <!-- Pixel desktop revealed under the cursor (decorative) -->
+        <div id="pixel-screen" class="pixel-screen" aria-hidden="true">
+          <canvas></canvas>
+        </div>
         <div
-          class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-end"
+          id="hero-content"
+          class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-end"
         >
           <div class="lg:col-span-8 reveal">
             <p
@@ -316,7 +428,7 @@
             style="transition-delay: 120ms"
           >
             <div
-              class="p-6 sm:p-7 rounded-2xl bg-paper-50/90 hairline-all backdrop-blur-sm shadow-sm"
+              class="spotlight-card p-6 sm:p-7 rounded-2xl bg-paper-50/90 hairline-all backdrop-blur-sm shadow-sm"
             >
               <div
                 class="text-[11px] uppercase tracking-[0.16em] text-navy-800 font-semibold mb-3"
@@ -376,7 +488,7 @@
               <span class="italic text-navy-700">intelligent systems.</span>
             </h2>
             <div
-              class="inline-flex flex-col gap-2.5 p-5 rounded-2xl bg-paper-50/90 hairline-all w-full max-w-xs shadow-2xs"
+              class="spotlight-card inline-flex flex-col gap-2.5 p-5 rounded-2xl bg-paper-50/90 hairline-all w-full max-w-xs shadow-2xs"
             >
               <span
                 class="text-xs uppercase tracking-widest text-navy-400 font-medium"
@@ -728,7 +840,7 @@
 
             <!-- Right Column: Interactive Inquiry Topic Selector & Message Preview -->
             <div
-              class="lg:col-span-6 min-w-0 bg-paper-100/90 rounded-2xl hairline-all p-4 sm:p-7"
+              class="spotlight-card lg:col-span-6 min-w-0 bg-paper-100/90 rounded-2xl hairline-all p-4 sm:p-7"
             >
               <div
                 class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-4"
@@ -751,10 +863,10 @@
               >
                 <button
                   type="button"
-                  data-topic="AI Product & UX"
+                  data-topic="0-to-1 MVP"
                   class="topic-pill active px-3.5 py-2 rounded-lg text-xs font-semibold transition-all cursor-pointer bg-navy-900 text-paper-50 border border-navy-900"
                 >
-                  AI Product &amp; UX
+                  0-to-1 MVP
                 </button>
                 <button
                   type="button"
@@ -765,10 +877,10 @@
                 </button>
                 <button
                   type="button"
-                  data-topic="0-to-1 MVP"
+                  data-topic="AI Product & UX"
                   class="topic-pill px-3.5 py-2 rounded-lg text-xs font-medium transition-all cursor-pointer bg-paper-50 text-navy-500 hover:text-navy-900 border border-[rgba(11,25,68,0.14)]"
                 >
-                  0-to-1 MVP
+                  AI Product &amp; UX
                 </button>
                 <button
                   type="button"
@@ -1080,7 +1192,7 @@
         filtered.forEach((study, idx) => {
           const card = document.createElement("article");
           card.className =
-            "group relative rounded-2xl bg-paper-50/90 hover:bg-paper-50 hairline-all p-7 sm:p-9 transition-all duration-300 flex flex-col justify-between cursor-pointer shadow-2xs hover:shadow-md hover:border-navy-900/30 hover:-translate-y-1";
+            "spotlight-card group relative rounded-2xl bg-paper-50/90 hover:bg-paper-50 hairline-all p-7 sm:p-9 transition-all duration-300 flex flex-col justify-between cursor-pointer shadow-2xs hover:shadow-md hover:border-navy-900/30 hover:-translate-y-1";
           card.setAttribute("tabindex", "0");
           card.setAttribute("role", "button");
           card.setAttribute("aria-label", `Open case study: ${study.title}`);
@@ -1242,7 +1354,7 @@
 
       const previewTextarea = document.getElementById("inquiry-preview");
       const mailtoBtn = document.getElementById("direct-mailto-btn");
-      let currentTopic = "AI Product & UX";
+      let currentTopic = "0-to-1 MVP";
 
       function updateMailtoLink(topic, bodyText) {
         const subject = encodeURIComponent(`Project Inquiry — ${topic}`);
@@ -1262,6 +1374,7 @@
         pill.addEventListener("click", () => {
           document.querySelectorAll(".topic-pill").forEach((p) => {
             p.classList.remove(
+              "active",
               "bg-navy-900",
               "text-paper-50",
               "border-navy-900",
@@ -1270,17 +1383,22 @@
             p.classList.add(
               "bg-paper-50",
               "text-navy-500",
+              "hover:text-navy-900",
               "border-[rgba(11,25,68,0.14)]",
               "font-medium",
             );
           });
+          // Drop the inactive hover color too — otherwise the pill under the
+          // cursor shows navy text on a navy background until you move away.
           pill.classList.remove(
             "bg-paper-50",
             "text-navy-500",
+            "hover:text-navy-900",
             "border-[rgba(11,25,68,0.14)]",
             "font-medium",
           );
           pill.classList.add(
+            "active",
             "bg-navy-900",
             "text-paper-50",
             "border-navy-900",
@@ -1342,16 +1460,343 @@
         }, 2400);
       }
 
-      // Subtle Interactive Spotlight Tracking
+      // Cursor-driven effects: only for mouse/trackpad users who haven't
+      // asked their OS to reduce motion.
       const spotlight = document.getElementById("spotlight");
-      window.addEventListener(
-        "pointermove",
-        (e) => {
-          spotlight.style.setProperty("--mouse-x", `${e.clientX}px`);
-          spotlight.style.setProperty("--mouse-y", `${e.clientY}px`);
-        },
-        { passive: true },
-      );
+      const prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+      const hasFinePointer = window.matchMedia(
+        "(hover: hover) and (pointer: fine)",
+      ).matches;
+      const cursorFxEnabled = !prefersReducedMotion && hasFinePointer;
+
+      if (cursorFxEnabled) {
+        window.addEventListener(
+          "pointermove",
+          (e) => {
+            // Page-wide ambient spotlight
+            spotlight.style.setProperty("--mouse-x", `${e.clientX}px`);
+            spotlight.style.setProperty("--mouse-y", `${e.clientY}px`);
+
+            // Spotlight cards (delegated, so JS-rendered cards work too)
+            const card = e.target.closest?.(".spotlight-card");
+            if (card) {
+              const r = card.getBoundingClientRect();
+              card.style.setProperty("--cx", `${e.clientX - r.left}px`);
+              card.style.setProperty("--cy", `${e.clientY - r.top}px`);
+            }
+          },
+          { passive: true },
+        );
+        initPixelReveal();
+      }
+
+      // ── Hero pixel reveal ─────────────────────────────────────────────
+      // A tiny canvas (1 px = PX screen px) is drawn as an indie pixel desktop,
+      // then only a dithered circle around the cursor is copied to screen.
+      function initPixelReveal() {
+        const hero = document.getElementById("hero");
+        const wrap = document.getElementById("pixel-screen");
+        if (!hero || !wrap) return;
+        const canvas = wrap.querySelector("canvas");
+        const ctx = canvas.getContext("2d");
+        const scene = document.createElement("canvas");
+        const sctx = scene.getContext("2d", { willReadFrequently: true });
+
+        const PX = 6; // screen pixels per "pixel"
+        const R_MAX = 24; // reveal radius (in pixels) — ~144 screen px
+        const EDGE = 14; // width of the dithered + fading edge
+        const BAYER = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5];
+
+        const C = {
+          wall: "#EAF0FF",
+          dot: "#C7D2FE",
+          white: "#FFFFFF",
+          navy: "#0B1944",
+          blue: "#1D4ED8",
+          sky: "#93C5FD",
+          pink: "#F472B6",
+          yellow: "#FACC15",
+          green: "#34D399",
+          note: "#FEF3C7",
+        };
+
+        // 3×5 bitmap font
+        const FONT = {
+          A: "010101111101101", B: "110101110101110", C: "011100100100011",
+          D: "110101101101110", E: "111100110100111", F: "111100110100100",
+          G: "011100101101011", H: "101101111101101", I: "111010010010111",
+          J: "001001001101010", K: "101101110101101", L: "100100100100111",
+          M: "101111111101101", N: "110101101101101", O: "010101101101010",
+          P: "110101110100100", Q: "010101101110011", R: "110101110101101",
+          S: "011100010001110", T: "111010010010010", U: "101101101101111",
+          V: "101101101101010", W: "101101111111101", X: "101101010101101",
+          Y: "101101010010010", Z: "111001010100111",
+          0: "111101101101111", 1: "010110010010111", 2: "110001010100111",
+          3: "110001010001110", 4: "101101111001001", 5: "111100110001110",
+          6: "011100111101111", 7: "111001010010010", 8: "111101111101111",
+          9: "111101111001110",
+          " ": "000000000000000", ">": "100010001010100", "<": "001010100010001",
+          _: "000000000000111", ".": "000000000000010", ",": "000000000010100",
+          ":": "000010000010000", "-": "000000111000000", "!": "010010010000010",
+          "?": "110001010000010", "/": "001001010100100", "+": "000010111010000",
+          "=": "000111000111000", "%": "101001010100101",
+        };
+
+        const HEART = [
+          ".XX.XX.",
+          "XXXXXXX",
+          "XXXXXXX",
+          ".XXXXX.",
+          "..XXX..",
+          "...X...",
+        ];
+
+        let W = 0, H = 0, out = null, sceneData = null;
+        let lastSceneDraw = 0;
+        const s = {
+          clientX: 0, clientY: 0, // last pointer position
+          x: 0, y: 0, r: 0, targetR: 0, // eased reveal state (pixel units)
+          inside: false, running: false,
+        };
+
+        const rect = (x, y, w, h, c) => {
+          sctx.fillStyle = c;
+          sctx.fillRect(x, y, w, h);
+        };
+        const text = (str, x, y, c) => {
+          sctx.fillStyle = c;
+          [...str.toUpperCase()].forEach((ch, i) => {
+            const g = FONT[ch] || FONT["?"];
+            for (let p = 0; p < 15; p++) {
+              if (g[p] === "1") sctx.fillRect(x + i * 4 + (p % 3), y + ((p / 3) | 0), 1, 1);
+            }
+          });
+        };
+        const sprite = (rows, x, y, c, scale = 1) => {
+          sctx.fillStyle = c;
+          rows.forEach((row, ry) =>
+            [...row].forEach((ch, rx) => {
+              if (ch === "X") sctx.fillRect(x + rx * scale, y + ry * scale, scale, scale);
+            }),
+          );
+        };
+        const win = (x, y, w, h, title) => {
+          rect(x + 1, y + 1, w, h, C.navy); // hard drop shadow
+          rect(x, y, w, h, C.navy);
+          rect(x + 1, y + 1, w - 2, h - 2, C.white);
+          rect(x + 1, y + 1, w - 2, 7, C.blue); // title bar
+          text(title, x + 3, y + 2, C.white);
+          rect(x + w - 7, y + 2, 4, 4, C.white); // close box
+          rect(x + w - 6, y + 3, 2, 2, C.blue);
+        };
+        const folder = (x, y, c, label) => {
+          rect(x, y, 5, 2, c);
+          rect(x, y + 1, 11, 8, c);
+          rect(x + 1, y + 3, 9, 1, C.white);
+          text(label, x + 5 - Math.round((label.length * 4 - 1) / 2), y + 11, C.navy);
+        };
+
+        function drawScene(now) {
+          const blink = Math.floor(now / 500) % 2 === 0;
+
+          // Wallpaper with an ordered dot pattern
+          rect(0, 0, W, H, C.wall);
+          for (let y = 0; y < H; y += 2)
+            for (let x = (y / 2) % 2 ? 2 : 0; x < W; x += 4) rect(x, y, 1, 1, C.dot);
+
+          // Desktop icons (left + right edges)
+          [["WORK", C.blue], ["IDEAS", C.sky], ["AI", C.blue], ["FUN", C.pink]].forEach(
+            ([label, c], i) => folder(6, 14 + i * 20, c, label),
+          );
+          if (W > 180) {
+            folder(W - 20, 14, C.yellow, "MAIL");
+            folder(W - 20, 34, C.green, "MUSIC");
+          }
+
+          // Terminal
+          const tx = Math.round(W * 0.16), ty = Math.round(H * 0.14);
+          win(tx, ty, 82, 42, "TERMINAL");
+          text("> HELLO WORLD!", tx + 4, ty + 11, C.navy);
+          text("> DESIGN + AI = <3", tx + 4, ty + 18, C.blue);
+          text("> MAKING IT HUMAN", tx + 4, ty + 25, C.navy);
+          text(">", tx + 4, ty + 32, C.navy);
+          if (blink) rect(tx + 8, ty + 32, 3, 5, C.blue);
+
+          // Paint window
+          const px = Math.round(W * 0.6), py = Math.round(H * 0.1);
+          win(px, py, 52, 44, "PAINT");
+          sprite(HEART, px + 15, py + 12, C.pink, 3);
+          [C.navy, C.blue, C.sky, C.pink, C.yellow, C.green].forEach((c, i) =>
+            rect(px + 4 + i * 7, py + 35, 5, 5, c),
+          );
+
+          // Loading dialog with stepped progress bar
+          const lx = Math.round(W * 0.4), ly = Math.round(H * 0.64);
+          win(lx, ly, 72, 26, "LOADING");
+          text("BREWING IDEAS...", lx + 4, ly + 11, C.navy);
+          rect(lx + 4, ly + 18, 64, 5, C.navy);
+          rect(lx + 5, ly + 19, 62, 3, C.white);
+          const steps = Math.floor(((now / 3200) % 1) * 15) + 1;
+          for (let i = 0; i < steps; i++) rect(lx + 5 + i * 4, ly + 19, 3, 3, C.blue);
+
+          // Sticky note
+          if (W > 150) {
+            const nx = Math.round(W * 0.8), ny = Math.round(H * 0.56);
+            rect(nx + 1, ny + 1, 30, 24, C.navy);
+            rect(nx, ny, 30, 24, C.note);
+            rect(nx, ny, 30, 3, C.yellow);
+            text("TODO:", nx + 3, ny + 5, C.navy);
+            text("SHIP", nx + 3, ny + 11, C.blue);
+            text("JOY", nx + 3, ny + 17, C.pink);
+          }
+
+          // Twinkling sparkles
+          [[0.33, 0.08], [0.52, 0.5], [0.9, 0.3], [0.25, 0.82], [0.72, 0.86], [0.05, 0.92]].forEach(
+            ([fx, fy], i) => {
+              const sx = Math.round(W * fx), sy = Math.round(H * fy);
+              const on = (Math.floor(now / 400) + i) % 3 !== 0;
+              const c = i % 2 ? C.yellow : C.blue;
+              rect(sx, sy, 1, 1, c);
+              if (on) {
+                rect(sx - 1, sy, 3, 1, c);
+                rect(sx, sy - 1, 1, 3, c);
+              }
+            },
+          );
+
+          // Menu bar with a live clock
+          rect(0, 0, W, 8, C.white);
+          rect(0, 8, W, 1, C.navy);
+          text("DUYEN.OS", 4, 2, C.navy);
+          text("FILE  EDIT  VIEW  HELP", 42, 2, C.blue);
+          const d = new Date();
+          const clock =
+            String(d.getHours()).padStart(2, "0") +
+            (blink ? ":" : " ") +
+            String(d.getMinutes()).padStart(2, "0");
+          text(clock, W - 24, 2, C.navy);
+          sprite(HEART, W - 34, 1, C.pink);
+
+          sceneData = sctx.getImageData(0, 0, W, H).data;
+          lastSceneDraw = now;
+        }
+
+        function resize() {
+          const r = wrap.getBoundingClientRect();
+          W = Math.max(1, Math.ceil(r.width / PX));
+          H = Math.max(1, Math.ceil(r.height / PX));
+          canvas.width = scene.width = W;
+          canvas.height = scene.height = H;
+          canvas.style.width = `${W * PX}px`;
+          canvas.style.height = `${H * PX}px`;
+          out = ctx.createImageData(W, H);
+          drawScene(performance.now());
+        }
+
+        // Copy only the dithered circle of the scene onto the visible canvas
+        function render() {
+          const o = out.data;
+          o.fill(0);
+          const outer = s.r + EDGE * (s.r / R_MAX);
+          const band = Math.max(outer - s.r, 0.001);
+          const x0 = Math.max(0, Math.floor(s.x - outer)), x1 = Math.min(W - 1, Math.ceil(s.x + outer));
+          const y0 = Math.max(0, Math.floor(s.y - outer)), y1 = Math.min(H - 1, Math.ceil(s.y + outer));
+          for (let y = y0; y <= y1; y++) {
+            for (let x = x0; x <= x1; x++) {
+              const d = Math.hypot(x + 0.5 - s.x, y + 0.5 - s.y);
+              if (d > outer) continue;
+              // t: 1 at the solid core → 0 at the outer rim
+              const t = d > s.r ? (outer - d) / band : 1;
+              if (t < 1 && BAYER[(y & 3) * 4 + (x & 3)] / 16 >= t) continue;
+              const i = (y * W + x) * 4;
+              o[i] = sceneData[i];
+              o[i + 1] = sceneData[i + 1];
+              o[i + 2] = sceneData[i + 2];
+              // Dither thins the pixels out; alpha fades the survivors too
+              o[i + 3] = Math.round(255 * Math.min(1, 0.25 + 0.75 * t));
+            }
+          }
+          ctx.putImageData(out, 0, 0);
+        }
+
+        function updateTarget() {
+          const r = wrap.getBoundingClientRect();
+          const inside =
+            s.clientY >= r.top && s.clientY <= r.bottom &&
+            s.clientX >= r.left && s.clientX <= r.right;
+          const px = (s.clientX - r.left) / PX, py = (s.clientY - r.top) / PX;
+          if (inside && !s.inside) {
+            s.x = px; // appear right under the cursor
+            s.y = py;
+          }
+          s.inside = inside;
+          s.targetX = px;
+          s.targetY = py;
+          s.targetR = inside ? R_MAX : 0;
+          // Swap the page-wide glow for the pixel screen while in the hero
+          spotlight.style.opacity = inside ? "0" : "";
+        }
+
+        function tick(now) {
+          updateTarget();
+          s.x += (s.targetX - s.x) * 0.22;
+          s.y += (s.targetY - s.y) * 0.22;
+          s.r += (s.targetR - s.r) * 0.18;
+          if (now - lastSceneDraw > 200) drawScene(now);
+          if (s.targetR === 0 && s.r < 0.4) {
+            s.r = 0;
+            ctx.clearRect(0, 0, W, H);
+            content?.classList.remove("is-revealing");
+            s.running = false;
+            return;
+          }
+          render();
+          maskContent();
+          requestAnimationFrame(tick);
+        }
+
+        // Hide the hero text inside the reveal: solid hole over the full
+        // circle, fading back in across the dithered edge.
+        const content = document.getElementById("hero-content");
+        function maskContent() {
+          if (!content) return;
+          const wr = wrap.getBoundingClientRect();
+          const cr = content.getBoundingClientRect();
+          const outer = s.r + EDGE * (s.r / R_MAX);
+          content.classList.add("is-revealing");
+          content.style.setProperty("--hx", `${s.x * PX + wr.left - cr.left}px`);
+          content.style.setProperty("--hy", `${s.y * PX + wr.top - cr.top}px`);
+          content.style.setProperty("--hr-in", `${s.r * PX}px`);
+          content.style.setProperty("--hr-out", `${outer * PX}px`);
+        }
+
+        function wake() {
+          updateTarget();
+          if (!s.running && (s.inside || s.r > 0)) {
+            s.running = true;
+            requestAnimationFrame(tick);
+          }
+        }
+
+        window.addEventListener(
+          "pointermove",
+          (e) => {
+            s.clientX = e.clientX;
+            s.clientY = e.clientY;
+            wake();
+          },
+          { passive: true },
+        );
+        window.addEventListener("scroll", wake, { passive: true });
+        document.documentElement.addEventListener("pointerleave", () => {
+          s.clientX = s.clientY = -9999;
+          wake();
+        });
+        new ResizeObserver(resize).observe(wrap);
+        resize();
+      }
 
       // Scroll Reveal Observer
       const observer = new IntersectionObserver(
