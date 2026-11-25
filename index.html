@@ -207,6 +207,13 @@
           #000 var(--hr-out, 0px)
         );
       }
+      /* A mask clips to the element's box, and the tight 0.95 leading lets
+         descenders (the "g") and italic overhangs spill outside it. Pad the
+         box so the glyphs fit, then cancel the padding so layout is unchanged. */
+      #hero-content h1.hero-mask {
+        padding: 0.15em 0.15em 0.3em 0;
+        margin: -0.15em -0.15em -0.3em 0;
+      }
       /* CTAs float above the pixel desktop while it's revealed */
       .hero-cta-link {
         /* Same padding as the primary button (px-5 py-3), so the pill matches */
