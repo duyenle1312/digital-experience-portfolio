@@ -399,7 +399,18 @@
             class="inline-flex items-center gap-1 text-navy-900 hover:text-navy-700 transition-colors py-2 font-semibold"
           >
             <span>Get in touch</span>
-            <svg class="arrow-icon text-navy-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+            <svg
+              class="arrow-icon text-navy-700"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.6"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M7 17 17 7M8 7h9v9" />
+            </svg>
           </a>
         </nav>
       </div>
@@ -441,7 +452,18 @@
                 class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-navy-900 text-paper-50 hover:bg-navy-800 text-xs sm:text-sm font-semibold transition-colors shadow-2xs"
               >
                 <span>Explore Selected Work</span>
-                <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+                <svg
+                  class="arrow-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.6"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M7 17 17 7M8 7h9v9" />
+                </svg>
               </a>
               <a
                 href="#about"
@@ -472,7 +494,8 @@
                 AI × Design × Engineering
               </div>
               <p class="text-sm sm:text-[15px] leading-relaxed text-navy-500">
-                I bring design and AI engineering together to make digital experiences feel more thoughtful, intuitive, and human.
+                I bring design and AI engineering together to make digital
+                experiences feel more thoughtful, intuitive, and human.
               </p>
             </div>
           </aside>
@@ -496,9 +519,9 @@
             <blockquote
               class="font-serif text-[2.125rem] sm:text-5xl lg:text-[3.85rem] leading-[1.12] tracking-editorial font-normal text-navy-900"
             >
-              “Great technology shouldn’t feel complicated — it should feel like
+              “Great technology shouldn’t feel complicated — it should
               <span class="italic text-navy-700"
-                >a natural, effortless part of everyday life.</span
+                >integrate effortlessly into our lives.</span
               >”
             </blockquote>
           </div>
@@ -869,7 +892,18 @@
                   class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-navy-900 text-paper-50 hover:bg-navy-800 font-semibold text-sm transition-colors shadow-xs"
                 >
                   <span>Open in Mail</span>
-                  <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+                  <svg
+                    class="arrow-icon"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M7 17 17 7M8 7h9v9" />
+                  </svg>
                 </a>
               </div>
             </div>
@@ -1095,7 +1129,18 @@
             class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-navy-900 text-paper-50 hover:bg-navy-800 text-xs font-semibold transition-colors cursor-pointer"
           >
             <span>Discuss a similar project</span>
-            <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+            <svg
+              class="arrow-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.6"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M7 17 17 7M8 7h9v9" />
+            </svg>
           </button>
         </div>
       </div>
@@ -1561,24 +1606,56 @@
 
         // 3×5 bitmap font
         const FONT = {
-          A: "010101111101101", B: "110101110101110", C: "011100100100011",
-          D: "110101101101110", E: "111100110100111", F: "111100110100100",
-          G: "011100101101011", H: "101101111101101", I: "111010010010111",
-          J: "001001001101010", K: "101101110101101", L: "100100100100111",
-          M: "101111111101101", N: "110101101101101", O: "010101101101010",
-          P: "110101110100100", Q: "010101101110011", R: "110101110101101",
-          S: "011100010001110", T: "111010010010010", U: "101101101101111",
-          V: "101101101101010", W: "101101111111101", X: "101101010101101",
-          Y: "101101010010010", Z: "111001010100111",
-          0: "111101101101111", 1: "010110010010111", 2: "110001010100111",
-          3: "110001010001110", 4: "101101111001001", 5: "111100110001110",
-          6: "011100111101111", 7: "111001010010010", 8: "111101111101111",
+          A: "010101111101101",
+          B: "110101110101110",
+          C: "011100100100011",
+          D: "110101101101110",
+          E: "111100110100111",
+          F: "111100110100100",
+          G: "011100101101011",
+          H: "101101111101101",
+          I: "111010010010111",
+          J: "001001001101010",
+          K: "101101110101101",
+          L: "100100100100111",
+          M: "101111111101101",
+          N: "110101101101101",
+          O: "010101101101010",
+          P: "110101110100100",
+          Q: "010101101110011",
+          R: "110101110101101",
+          S: "011100010001110",
+          T: "111010010010010",
+          U: "101101101101111",
+          V: "101101101101010",
+          W: "101101111111101",
+          X: "101101010101101",
+          Y: "101101010010010",
+          Z: "111001010100111",
+          0: "111101101101111",
+          1: "010110010010111",
+          2: "110001010100111",
+          3: "110001010001110",
+          4: "101101111001001",
+          5: "111100110001110",
+          6: "011100111101111",
+          7: "111001010010010",
+          8: "111101111101111",
           9: "111101111001110",
-          " ": "000000000000000", ">": "100010001010100", "<": "001010100010001",
-          _: "000000000000111", ".": "000000000000010", ",": "000000000010100",
-          ":": "000010000010000", "-": "000000111000000", "!": "010010010000010",
-          "?": "110001010000010", "/": "001001010100100", "+": "000010111010000",
-          "=": "000111000111000", "%": "101001010100101",
+          " ": "000000000000000",
+          ">": "100010001010100",
+          "<": "001010100010001",
+          _: "000000000000111",
+          ".": "000000000000010",
+          ",": "000000000010100",
+          ":": "000010000010000",
+          "-": "000000111000000",
+          "!": "010010010000010",
+          "?": "110001010000010",
+          "/": "001001010100100",
+          "+": "000010111010000",
+          "=": "000111000111000",
+          "%": "101001010100101",
         };
 
         const HEART = [
@@ -1590,12 +1667,20 @@
           "...X...",
         ];
 
-        let W = 0, H = 0, out = null, sceneData = null;
+        let W = 0,
+          H = 0,
+          out = null,
+          sceneData = null;
         let lastSceneDraw = 0;
         const s = {
-          clientX: -9999, clientY: -9999, // last pointer position (off-screen)
-          x: 0, y: 0, r: 0, targetR: 0, // eased reveal state (pixel units)
-          inside: false, running: false,
+          clientX: -9999,
+          clientY: -9999, // last pointer position (off-screen)
+          x: 0,
+          y: 0,
+          r: 0,
+          targetR: 0, // eased reveal state (pixel units)
+          inside: false,
+          running: false,
           touchHold: false, // true while a finger is pressing & holding
         };
 
@@ -1608,7 +1693,8 @@
           [...str.toUpperCase()].forEach((ch, i) => {
             const g = FONT[ch] || FONT["?"];
             for (let p = 0; p < 15; p++) {
-              if (g[p] === "1") sctx.fillRect(x + i * 4 + (p % 3), y + ((p / 3) | 0), 1, 1);
+              if (g[p] === "1")
+                sctx.fillRect(x + i * 4 + (p % 3), y + ((p / 3) | 0), 1, 1);
             }
           });
         };
@@ -1616,7 +1702,8 @@
           sctx.fillStyle = c;
           rows.forEach((row, ry) =>
             [...row].forEach((ch, rx) => {
-              if (ch === "X") sctx.fillRect(x + rx * scale, y + ry * scale, scale, scale);
+              if (ch === "X")
+                sctx.fillRect(x + rx * scale, y + ry * scale, scale, scale);
             }),
           );
         };
@@ -1633,7 +1720,12 @@
           rect(x, y, 5, 2, c);
           rect(x, y + 1, 11, 8, c);
           rect(x + 1, y + 3, 9, 1, C.white);
-          text(label, x + 5 - Math.round((label.length * 4 - 1) / 2), y + 11, C.navy);
+          text(
+            label,
+            x + 5 - Math.round((label.length * 4 - 1) / 2),
+            y + 11,
+            C.navy,
+          );
         };
 
         function drawScene(now) {
@@ -1642,17 +1734,22 @@
           // Wallpaper with an ordered dot pattern
           rect(0, 0, W, H, C.wall);
           for (let y = 0; y < H; y += 2)
-            for (let x = (y / 2) % 2 ? 2 : 0; x < W; x += 4) rect(x, y, 1, 1, C.dot);
+            for (let x = (y / 2) % 2 ? 2 : 0; x < W; x += 4)
+              rect(x, y, 1, 1, C.dot);
 
           // Phones get a stacked layout so windows don't pile on each other
           const narrow = W < 140;
 
           // Desktop icons (left column on desktop, bottom row on phones)
-          [["WORK", C.blue], ["IDEAS", C.sky], ["AI", C.blue], ["FUN", C.pink]].forEach(
-            ([label, c], i) =>
-              narrow
-                ? folder(6 + i * 22, H - 24, c, label)
-                : folder(6, 14 + i * 20, c, label),
+          [
+            ["WORK", C.blue],
+            ["IDEAS", C.sky],
+            ["AI", C.blue],
+            ["FUN", C.pink],
+          ].forEach(([label, c], i) =>
+            narrow
+              ? folder(6 + i * 22, H - 24, c, label)
+              : folder(6, 14 + i * 20, c, label),
           );
           if (W > 180) {
             folder(W - 20, 14, C.yellow, "MAIL");
@@ -1660,7 +1757,9 @@
           }
 
           // Terminal
-          const tx = narrow ? Math.max(2, Math.round((W - 82) / 2)) : Math.round(W * 0.16);
+          const tx = narrow
+            ? Math.max(2, Math.round((W - 82) / 2))
+            : Math.round(W * 0.16);
           const ty = narrow ? 14 : Math.round(H * 0.14);
           win(tx, ty, 82, 42, "TERMINAL");
           text("> HELLO WORLD!", tx + 4, ty + 11, C.navy);
@@ -1671,7 +1770,8 @@
 
           // Paint window (desktop only — phones need the room)
           if (!narrow) {
-            const px = Math.round(W * 0.6), py = Math.round(H * 0.1);
+            const px = Math.round(W * 0.6),
+              py = Math.round(H * 0.1);
             win(px, py, 52, 44, "PAINT");
             sprite(HEART, px + 15, py + 12, C.pink, 3);
             [C.navy, C.blue, C.sky, C.pink, C.yellow, C.green].forEach((c, i) =>
@@ -1687,7 +1787,8 @@
           rect(lx + 4, ly + 18, 64, 5, C.navy);
           rect(lx + 5, ly + 19, 62, 3, C.white);
           const steps = Math.floor(((now / 3200) % 1) * 15) + 1;
-          for (let i = 0; i < steps; i++) rect(lx + 5 + i * 4, ly + 19, 3, 3, C.blue);
+          for (let i = 0; i < steps; i++)
+            rect(lx + 5 + i * 4, ly + 19, 3, 3, C.blue);
 
           // Sticky note
           if (W > 150 || narrow) {
@@ -1703,18 +1804,24 @@
           }
 
           // Twinkling sparkles
-          [[0.33, 0.08], [0.52, 0.5], [0.9, 0.3], [0.25, 0.82], [0.72, 0.86], [0.05, 0.92]].forEach(
-            ([fx, fy], i) => {
-              const sx = Math.round(W * fx), sy = Math.round(H * fy);
-              const on = (Math.floor(now / 400) + i) % 3 !== 0;
-              const c = i % 2 ? C.yellow : C.blue;
-              rect(sx, sy, 1, 1, c);
-              if (on) {
-                rect(sx - 1, sy, 3, 1, c);
-                rect(sx, sy - 1, 1, 3, c);
-              }
-            },
-          );
+          [
+            [0.33, 0.08],
+            [0.52, 0.5],
+            [0.9, 0.3],
+            [0.25, 0.82],
+            [0.72, 0.86],
+            [0.05, 0.92],
+          ].forEach(([fx, fy], i) => {
+            const sx = Math.round(W * fx),
+              sy = Math.round(H * fy);
+            const on = (Math.floor(now / 400) + i) % 3 !== 0;
+            const c = i % 2 ? C.yellow : C.blue;
+            rect(sx, sy, 1, 1, c);
+            if (on) {
+              rect(sx - 1, sy, 3, 1, c);
+              rect(sx, sy - 1, 1, 3, c);
+            }
+          });
 
           // Menu bar with a live clock
           rect(0, 0, W, 8, C.white);
@@ -1752,8 +1859,10 @@
           o.fill(0);
           const outer = s.r + EDGE * (s.r / R_MAX);
           const band = Math.max(outer - s.r, 0.001);
-          const x0 = Math.max(0, Math.floor(s.x - outer)), x1 = Math.min(W - 1, Math.ceil(s.x + outer));
-          const y0 = Math.max(0, Math.floor(s.y - outer)), y1 = Math.min(H - 1, Math.ceil(s.y + outer));
+          const x0 = Math.max(0, Math.floor(s.x - outer)),
+            x1 = Math.min(W - 1, Math.ceil(s.x + outer));
+          const y0 = Math.max(0, Math.floor(s.y - outer)),
+            y1 = Math.min(H - 1, Math.ceil(s.y + outer));
           for (let y = y0; y <= y1; y++) {
             for (let x = x0; x <= x1; x++) {
               const d = Math.hypot(x + 0.5 - s.x, y + 0.5 - s.y);
@@ -1775,9 +1884,12 @@
         function updateTarget() {
           const r = wrap.getBoundingClientRect();
           const inside =
-            s.clientY >= r.top && s.clientY <= r.bottom &&
-            s.clientX >= r.left && s.clientX <= r.right;
-          const px = (s.clientX - r.left) / PX, py = (s.clientY - r.top) / PX;
+            s.clientY >= r.top &&
+            s.clientY <= r.bottom &&
+            s.clientX >= r.left &&
+            s.clientX <= r.right;
+          const px = (s.clientX - r.left) / PX,
+            py = (s.clientY - r.top) / PX;
           if (inside && !s.inside) {
             s.x = px; // appear right under the cursor
             s.y = py;
@@ -1817,7 +1929,10 @@
           const cr = content.getBoundingClientRect();
           const outer = s.r + EDGE * (s.r / R_MAX);
           content.classList.add("is-revealing");
-          content.style.setProperty("--hx", `${s.x * PX + wr.left - cr.left}px`);
+          content.style.setProperty(
+            "--hx",
+            `${s.x * PX + wr.left - cr.left}px`,
+          );
           content.style.setProperty("--hy", `${s.y * PX + wr.top - cr.top}px`);
           content.style.setProperty("--hr-in", `${s.r * PX}px`);
           content.style.setProperty("--hr-out", `${outer * PX}px`);
@@ -1853,7 +1968,8 @@
         // Lift above the finger, but never past the top of the hero
         const liftY = (y) =>
           Math.max(y - FINGER_LIFT, wrap.getBoundingClientRect().top + 2);
-        let startX = 0, startY = 0;
+        let startX = 0,
+          startY = 0;
         const endHold = () => {
           clearTimeout(holdTimer);
           holdTimer = null;
