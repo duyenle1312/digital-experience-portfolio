@@ -551,33 +551,31 @@
             >
               <span
                 class="text-xs uppercase tracking-widest text-navy-400 font-medium"
-                >Evolution</span
+                >My Evolution</span
               >
               <div class="space-y-2.5 text-sm pt-1">
                 <div class="flex items-center justify-between">
-                  <span class="text-navy-500">01. Graphic Design</span>
+                  <span class="text-navy-500">1. Graphic Design</span>
                   <span class="text-xs font-mono text-navy-400"
-                    >Craft &amp; Visuals</span
+                    >Visual Thinking</span
                   >
                 </div>
                 <div class="flex items-center justify-between">
-                  <span class="text-navy-500">02. UI / UX &amp; Product</span>
+                  <span class="text-navy-500">2. UI/UX &amp; Frontend</span>
                   <span class="text-xs font-mono text-navy-400"
-                    >Human Empathy</span
+                    >Human Experience</span
                   >
                 </div>
                 <div class="flex items-center justify-between">
-                  <span class="text-navy-500"
-                    >03. Fullstack &amp; Frontend</span
-                  >
+                  <span class="text-navy-500">3. Full-Stack & IT Consulting</span>
                   <span class="text-xs font-mono text-navy-400"
-                    >Systems &amp; Scale</span
+                    >Interactive Systems</span
                   >
                 </div>
                 <div
                   class="flex items-center justify-between text-navy-900 font-semibold pt-1 hairline-t"
                 >
-                  <span>04. AI Engineering</span>
+                  <span>4. AI Engineering</span>
                   <span class="text-xs font-mono text-navy-700"
                     >Adaptive Intelligence</span
                   >
@@ -593,12 +591,12 @@
             <p
               class="text-2xl sm:text-3xl lg:text-[31px] leading-[1.36] tracking-[-0.025em] text-navy-900 font-normal"
             >
-              My path here wasn’t linear. I started in
+              I see technology as a medium for human expression.<br />
+              My journey began with
               <span class="font-serif italic text-navy-700 text-[1.12em]"
                 >graphic design</span
-              >, where I developed an appreciation for visual storytelling,
-              composition, and the quiet details that make an experience feel
-              right.
+              >, where I learned to think in visuals, build with intention, and
+              care about the details people feel but rarely notice.
             </p>
             <p class="text-lg sm:text-[19px] leading-relaxed text-navy-500">
               Curiosity pulled me from static layouts into UX/UI and fullstack
@@ -624,10 +622,10 @@
               made better.
             </p>
             <p class="text-lg sm:text-[19px] leading-relaxed text-navy-500">
-              I enjoy bringing ideas to life across the entire process,
-              combining design thinking, user experience, and engineering to
-              create digital experiences that are thoughtful, intuitive, and
-              human.
+              I bring together agentic workflows, structured reasoning, and
+              thoughtful interface engineering to build systems that don't just
+              respond to people, but actively help them think, create, and get
+              things done effectively.
             </p>
           </div>
         </div>
@@ -1802,11 +1800,15 @@
           // Layout: terminal hugs the left folder column; library hugs the
           // right one. If they can't both fit, the right folders step aside
           // instead of being covered.
-          const TERM_W = 90, LIB_W = 82;
+          const TERM_W = 90,
+            LIB_W = 82;
           const tx = narrow ? Math.max(2, Math.round((W - TERM_W) / 2)) : 26;
           const ty = narrow ? 14 : Math.round(H * 0.14);
           // never past the right edge — on tight screens it overlaps the terminal like a stacked window
-          const libX = Math.min(Math.max(tx + TERM_W + 6, W - 28 - LIB_W), W - LIB_W - 3);
+          const libX = Math.min(
+            Math.max(tx + TERM_W + 6, W - 28 - LIB_W),
+            W - LIB_W - 3,
+          );
           const showRightFolders = W > 180 && libX + LIB_W + 1 <= W - 27;
           if (showRightFolders) {
             folder(W - 20, 14, C.yellow, "MAIL");
@@ -1839,7 +1841,8 @@
               text(topic, px + 21, ly2, C.navy);
             });
             // dotted divider, then an ever-curious prompt
-            for (let dx = 4; dx < 78; dx += 2) rect(px + dx, py + 39, 1, 1, C.sky);
+            for (let dx = 4; dx < 78; dx += 2)
+              rect(px + dx, py + 39, 1, 1, C.sky);
             text("> STILL ASKING WHY", px + 4, py + 42, C.blue);
             if (blink) rect(px + 4 + 18 * 4, py + 42, 1, 5, C.blue);
           }
@@ -1876,15 +1879,17 @@
           // whoever is visiting
           const nowDate = new Date();
           const parts = SOFIA_TIME.formatToParts(nowDate);
-          const part = (type) => parts.find((p) => p.type === type)?.value ?? "00";
+          const part = (type) =>
+            parts.find((p) => p.type === type)?.value ?? "00";
           const clock = part("hour") + (blink ? ":" : " ") + part("minute");
           text(clock, W - 24, 2, C.navy);
           sprite(HEART, W - 34, 1, C.pink);
 
           // Time zone label — the longest version that fits the menu bar
           const offset =
-            SOFIA_OFFSET.formatToParts(nowDate).find((p) => p.type === "timeZoneName")
-              ?.value || "EET";
+            SOFIA_OFFSET.formatToParts(nowDate).find(
+              (p) => p.type === "timeZoneName",
+            )?.value || "EET";
           const leftLimit = 38; // just right of "DUYEN.OS"
           const tzLabel = [`SOFIA ${offset}`, `SOF ${offset}`, offset].find(
             (l) => W - 38 - (l.length * 4 - 1) >= leftLimit,
