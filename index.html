@@ -455,7 +455,7 @@
               class="touch-hint mt-6 items-center gap-2 text-[11px] font-mono tracking-[0.08em] text-navy-500"
             >
               <span class="inline-block w-1.5 h-1.5 bg-navy-700"></span>
-              psst — press &amp; hold here to peek underneath
+              press &amp; hold to peek underneath
             </p>
           </div>
 
@@ -494,7 +494,7 @@
           </div>
           <div class="lg:col-span-8">
             <blockquote
-              class="font-serif text-3xl sm:text-5xl lg:text-[3.85rem] leading-[1.12] tracking-editorial font-normal text-navy-900"
+              class="font-serif text-[2.125rem] sm:text-5xl lg:text-[3.85rem] leading-[1.12] tracking-editorial font-normal text-navy-900"
             >
               “Great technology shouldn’t feel complicated — it should feel like
               <span class="italic text-navy-700"
@@ -518,7 +518,7 @@
               About / 03
             </p>
             <h2
-              class="font-serif text-3xl sm:text-4xl leading-[1.1] tracking-editorial font-normal text-navy-900 mb-6"
+              class="font-serif text-[2.125rem] sm:text-4xl leading-[1.1] tracking-editorial font-normal text-navy-900 mb-6"
             >
               From visual craft to
               <span class="italic text-navy-700">intelligent systems.</span>
@@ -1669,18 +1669,19 @@
           text(">", tx + 4, ty + 32, C.navy);
           if (blink) rect(tx + 8, ty + 32, 3, 5, C.blue);
 
-          // Paint window
-          const px = narrow ? W - 56 : Math.round(W * 0.6);
-          const py = narrow ? Math.round(H * 0.36) : Math.round(H * 0.1);
-          win(px, py, 52, 44, "PAINT");
-          sprite(HEART, px + 15, py + 12, C.pink, 3);
-          [C.navy, C.blue, C.sky, C.pink, C.yellow, C.green].forEach((c, i) =>
-            rect(px + 4 + i * 7, py + 35, 5, 5, c),
-          );
+          // Paint window (desktop only — phones need the room)
+          if (!narrow) {
+            const px = Math.round(W * 0.6), py = Math.round(H * 0.1);
+            win(px, py, 52, 44, "PAINT");
+            sprite(HEART, px + 15, py + 12, C.pink, 3);
+            [C.navy, C.blue, C.sky, C.pink, C.yellow, C.green].forEach((c, i) =>
+              rect(px + 4 + i * 7, py + 35, 5, 5, c),
+            );
+          }
 
           // Loading dialog with stepped progress bar
           const lx = narrow ? 4 : Math.round(W * 0.4);
-          const ly = narrow ? Math.round(H * 0.66) : Math.round(H * 0.64);
+          const ly = narrow ? ty + 82 : Math.round(H * 0.64);
           win(lx, ly, 72, 26, "LOADING");
           text("BREWING IDEAS...", lx + 4, ly + 11, C.navy);
           rect(lx + 4, ly + 18, 64, 5, C.navy);
@@ -1689,8 +1690,10 @@
           for (let i = 0; i < steps; i++) rect(lx + 5 + i * 4, ly + 19, 3, 3, C.blue);
 
           // Sticky note
-          if (W > 150) {
-            const nx = Math.round(W * 0.8), ny = Math.round(H * 0.56);
+          if (W > 150 || narrow) {
+            // Phones: tucked under the terminal, between it and LOADING
+            const nx = narrow ? 6 : Math.round(W * 0.8);
+            const ny = narrow ? ty + 48 : Math.round(H * 0.56);
             rect(nx + 1, ny + 1, 30, 24, C.navy);
             rect(nx, ny, 30, 24, C.note);
             rect(nx, ny, 30, 3, C.yellow);
@@ -1791,7 +1794,7 @@
           updateTarget();
           s.x += (s.targetX - s.x) * 0.22;
           s.y += (s.targetY - s.y) * 0.22;
-          s.r += (s.targetR - s.r) * 0.18;
+          s.r += (s.targetR - s.r) * (s.touchHold ? 0.35 : 0.18);
           if (now - lastSceneDraw > 200) drawScene(now);
           if (s.targetR === 0 && s.r < 0.4) {
             s.r = 0;
@@ -1843,9 +1846,13 @@
 
         // Touch: press & hold in the hero (~300ms) to open the reveal, drag to
         // move it, lift to close. A quick swipe still scrolls the page normally.
-        const HOLD_MS = 300;
+        const HOLD_MS = 180;
+        const FINGER_LIFT = 70; // show the reveal above the thumb, not under it
         const MOVE_SLOP = 10; // px of finger drift allowed before it's a scroll
         let holdTimer = null;
+        // Lift above the finger, but never past the top of the hero
+        const liftY = (y) =>
+          Math.max(y - FINGER_LIFT, wrap.getBoundingClientRect().top + 2);
         let startX = 0, startY = 0;
         const endHold = () => {
           clearTimeout(holdTimer);
@@ -1868,9 +1875,10 @@
               holdTimer = null;
               s.touchHold = true;
               s.clientX = startX;
-              s.clientY = startY;
+              s.clientY = liftY(startY);
               navigator.vibrate?.(8); // tiny haptic tick where supported
               wake();
+              s.r = Math.max(s.r, R_MAX * 0.6); // pop open instead of growing from 0
             }, HOLD_MS);
           },
           { passive: true },
@@ -1880,9 +1888,9 @@
           (e) => {
             const t = e.touches[0];
             if (s.touchHold) {
-              e.preventDefault(); // drag moves the reveal instead of scrolling
+              if (e.cancelable) e.preventDefault(); // drag moves the reveal, not the page
               s.clientX = t.clientX;
-              s.clientY = t.clientY;
+              s.clientY = liftY(t.clientY);
               wake();
             } else if (
               holdTimer &&
