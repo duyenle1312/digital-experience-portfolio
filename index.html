@@ -1667,6 +1667,18 @@
           "...X...",
         ];
 
+        const SOFIA_TIME = new Intl.DateTimeFormat("en-GB", {
+          timeZone: "Europe/Sofia",
+          hour: "2-digit",
+          minute: "2-digit",
+          hourCycle: "h23",
+        });
+        // "GMT+2" in winter, "GMT+3" in summer (EET / EEST)
+        const SOFIA_OFFSET = new Intl.DateTimeFormat("en-GB", {
+          timeZone: "Europe/Sofia",
+          timeZoneName: "shortOffset",
+        });
+
         // Ionic column: scrolled capital, fluted shaft, stepped base
         const COLUMN = [
           "XXXXXXXXX",
@@ -1793,7 +1805,8 @@
           const TERM_W = 90, LIB_W = 82;
           const tx = narrow ? Math.max(2, Math.round((W - TERM_W) / 2)) : 26;
           const ty = narrow ? 14 : Math.round(H * 0.14);
-          const libX = Math.max(tx + TERM_W + 6, W - 28 - LIB_W);
+          // never past the right edge — on tight screens it overlaps the terminal like a stacked window
+          const libX = Math.min(Math.max(tx + TERM_W + 6, W - 28 - LIB_W), W - LIB_W - 3);
           const showRightFolders = W > 180 && libX + LIB_W + 1 <= W - 27;
           if (showRightFolders) {
             folder(W - 20, 14, C.yellow, "MAIL");
@@ -1859,14 +1872,35 @@
           rect(0, 0, W, 8, C.white);
           rect(0, 8, W, 1, C.navy);
           text("DUYEN.OS", 4, 2, C.navy);
-          if (!narrow) text("FILE  EDIT  VIEW  HELP", 42, 2, C.blue);
-          const d = new Date();
-          const clock =
-            String(d.getHours()).padStart(2, "0") +
-            (blink ? ":" : " ") +
-            String(d.getMinutes()).padStart(2, "0");
+          // Always Duyen's local time in Sofia (DST handled by the browser),
+          // whoever is visiting
+          const nowDate = new Date();
+          const parts = SOFIA_TIME.formatToParts(nowDate);
+          const part = (type) => parts.find((p) => p.type === type)?.value ?? "00";
+          const clock = part("hour") + (blink ? ":" : " ") + part("minute");
           text(clock, W - 24, 2, C.navy);
           sprite(HEART, W - 34, 1, C.pink);
+
+          // Time zone label — the longest version that fits the menu bar
+          const offset =
+            SOFIA_OFFSET.formatToParts(nowDate).find((p) => p.type === "timeZoneName")
+              ?.value || "EET";
+          const leftLimit = 38; // just right of "DUYEN.OS"
+          const tzLabel = [`SOFIA ${offset}`, `SOF ${offset}`, offset].find(
+            (l) => W - 38 - (l.length * 4 - 1) >= leftLimit,
+          );
+          const tzX = tzLabel ? W - 38 - (tzLabel.length * 4 - 1) : W - 38;
+          if (tzLabel) text(tzLabel, tzX, 2, C.blue);
+
+          // Menu items fill whatever room the time zone label leaves
+          if (!narrow) {
+            let mx = 42;
+            for (const item of ["FILE", "EDIT", "VIEW", "HELP"]) {
+              if (mx + item.length * 4 > tzX - 6) break;
+              text(item, mx, 2, C.blue);
+              mx += item.length * 4 + 8;
+            }
+          }
 
           sceneData = sctx.getImageData(0, 0, W, H).data;
           lastSceneDraw = now;
