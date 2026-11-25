@@ -1667,6 +1667,22 @@
           "...X...",
         ];
 
+        // Ionic column: scrolled capital, fluted shaft, stepped base
+        const COLUMN = [
+          "XXXXXXXXX",
+          "X.XXXXX.X",
+          ".XXXXXXX.",
+          "..X.X.X..",
+          "..X.X.X..",
+          "..X.X.X..",
+          "..X.X.X..",
+          "..X.X.X..",
+          "..X.X.X..",
+          "..X.X.X..",
+          ".XXXXXXX.",
+          "XXXXXXXXX",
+        ];
+
         let W = 0,
           H = 0,
           out = null,
@@ -1737,77 +1753,11 @@
             for (let x = (y / 2) % 2 ? 2 : 0; x < W; x += 4)
               rect(x, y, 1, 1, C.dot);
 
-          // Phones get a stacked layout so windows don't pile on each other
-          const narrow = W < 140;
-
-          // Desktop icons (left column on desktop, bottom row on phones)
-          [
-            ["WORK", C.blue],
-            ["IDEAS", C.sky],
-            ["AI", C.blue],
-            ["FUN", C.pink],
-          ].forEach(([label, c], i) =>
-            narrow
-              ? folder(6 + i * 22, H - 24, c, label)
-              : folder(6, 14 + i * 20, c, label),
-          );
-          if (W > 180) {
-            folder(W - 20, 14, C.yellow, "MAIL");
-            folder(W - 20, 34, C.green, "MUSIC");
-          }
-
-          // Terminal
-          const tx = narrow
-            ? Math.max(2, Math.round((W - 82) / 2))
-            : Math.round(W * 0.16);
-          const ty = narrow ? 14 : Math.round(H * 0.14);
-          win(tx, ty, 82, 42, "TERMINAL");
-          text("> HELLO WORLD!", tx + 4, ty + 11, C.navy);
-          text("> DESIGN + AI = <3", tx + 4, ty + 18, C.blue);
-          text("> MAKING IT HUMAN", tx + 4, ty + 25, C.navy);
-          text(">", tx + 4, ty + 32, C.navy);
-          if (blink) rect(tx + 8, ty + 32, 3, 5, C.blue);
-
-          // Paint window (desktop only — phones need the room)
-          if (!narrow) {
-            const px = Math.round(W * 0.6),
-              py = Math.round(H * 0.1);
-            win(px, py, 52, 44, "PAINT");
-            sprite(HEART, px + 15, py + 12, C.pink, 3);
-            [C.navy, C.blue, C.sky, C.pink, C.yellow, C.green].forEach((c, i) =>
-              rect(px + 4 + i * 7, py + 35, 5, 5, c),
-            );
-          }
-
-          // Loading dialog with stepped progress bar
-          const lx = narrow ? 4 : Math.round(W * 0.4);
-          const ly = narrow ? ty + 82 : Math.round(H * 0.64);
-          win(lx, ly, 72, 26, "LOADING");
-          text("BREWING IDEAS...", lx + 4, ly + 11, C.navy);
-          rect(lx + 4, ly + 18, 64, 5, C.navy);
-          rect(lx + 5, ly + 19, 62, 3, C.white);
-          const steps = Math.floor(((now / 3200) % 1) * 15) + 1;
-          for (let i = 0; i < steps; i++)
-            rect(lx + 5 + i * 4, ly + 19, 3, 3, C.blue);
-
-          // Sticky note
-          if (W > 150 || narrow) {
-            // Phones: tucked under the terminal, between it and LOADING
-            const nx = narrow ? 6 : Math.round(W * 0.8);
-            const ny = narrow ? ty + 48 : Math.round(H * 0.56);
-            rect(nx + 1, ny + 1, 30, 24, C.navy);
-            rect(nx, ny, 30, 24, C.note);
-            rect(nx, ny, 30, 3, C.yellow);
-            text("TODO:", nx + 3, ny + 5, C.navy);
-            text("SHIP", nx + 3, ny + 11, C.blue);
-            text("JOY", nx + 3, ny + 17, C.pink);
-          }
-
           // Twinkling sparkles
           [
             [0.33, 0.08],
             [0.52, 0.5],
-            [0.9, 0.3],
+            [0.95, 0.52],
             [0.25, 0.82],
             [0.72, 0.86],
             [0.05, 0.92],
@@ -1822,6 +1772,88 @@
               rect(sx, sy - 1, 1, 3, c);
             }
           });
+
+          // Phones get a stacked layout so windows don't pile on each other
+          const narrow = W < 140;
+
+          // Desktop icons (left column on desktop, bottom row on phones)
+          [
+            ["WORK", C.blue],
+            ["IDEAS", C.sky],
+            ["AI", C.blue],
+            ["FUN", C.pink],
+          ].forEach(([label, c], i) =>
+            narrow
+              ? folder(6 + i * 22, H - 24, c, label)
+              : folder(6, 14 + i * 20, c, label),
+          );
+          // Layout: terminal hugs the left folder column; library hugs the
+          // right one. If they can't both fit, the right folders step aside
+          // instead of being covered.
+          const TERM_W = 90, LIB_W = 82;
+          const tx = narrow ? Math.max(2, Math.round((W - TERM_W) / 2)) : 26;
+          const ty = narrow ? 14 : Math.round(H * 0.14);
+          const libX = Math.max(tx + TERM_W + 6, W - 28 - LIB_W);
+          const showRightFolders = W > 180 && libX + LIB_W + 1 <= W - 27;
+          if (showRightFolders) {
+            folder(W - 20, 14, C.yellow, "MAIL");
+            folder(W - 20, 34, C.green, "MUSIC");
+          }
+
+          // Terminal — booting the stack, then the human part
+          win(tx, ty, TERM_W, 48, "TERMINAL");
+          text("> NPM RUN DEV", tx + 4, ty + 11, C.navy);
+          text("NEXT.JS + REACT + TS", tx + 4, ty + 18, C.blue);
+          text("> DESIGN + AI = <3", tx + 4, ty + 25, C.navy);
+          text("> MAKING IT HUMAN", tx + 4, ty + 32, C.pink);
+          text(">", tx + 4, ty + 39, C.navy);
+          if (blink) rect(tx + 8, ty + 39, 3, 5, C.blue);
+
+          // Library window — what I study (desktop only; phones need the room)
+          if (!narrow) {
+            const px = libX,
+              py = Math.max(11, Math.round(H * 0.1));
+            win(px, py, 82, 50, "LIBRARY");
+            sprite(COLUMN, px + 4, py + 12, C.navy);
+            [
+              ["PHILOSOPHY", C.blue],
+              ["ANCIENT ROME", C.yellow],
+              ["RACE + GENDER", C.pink],
+              ["AI ETHICS", C.green],
+            ].forEach(([topic, c], i) => {
+              const ly2 = py + 11 + i * 7;
+              rect(px + 17, ly2 + 1, 2, 3, c); // colored bookmark
+              text(topic, px + 21, ly2, C.navy);
+            });
+            // dotted divider, then an ever-curious prompt
+            for (let dx = 4; dx < 78; dx += 2) rect(px + dx, py + 39, 1, 1, C.sky);
+            text("> STILL ASKING WHY", px + 4, py + 42, C.blue);
+            if (blink) rect(px + 4 + 18 * 4, py + 42, 1, 5, C.blue);
+          }
+
+          // Loading dialog with stepped progress bar
+          const lx = narrow ? 4 : Math.round(W * 0.4);
+          const ly = narrow ? ty + 88 : Math.round(H * 0.64);
+          win(lx, ly, 72, 26, "LOADING");
+          text("BREWING IDEAS...", lx + 4, ly + 11, C.navy);
+          rect(lx + 4, ly + 18, 64, 5, C.navy);
+          rect(lx + 5, ly + 19, 62, 3, C.white);
+          const steps = Math.floor(((now / 3200) % 1) * 15) + 1;
+          for (let i = 0; i < steps; i++)
+            rect(lx + 5 + i * 4, ly + 19, 3, 3, C.blue);
+
+          // Sticky note
+          if (W > 150 || narrow) {
+            // Phones: tucked under the terminal, between it and LOADING
+            const nx = narrow ? 6 : Math.round(W * 0.8);
+            const ny = narrow ? ty + 54 : Math.round(H * 0.63);
+            rect(nx + 1, ny + 1, 30, 24, C.navy);
+            rect(nx, ny, 30, 24, C.note);
+            rect(nx, ny, 30, 3, C.yellow);
+            text("TODO:", nx + 3, ny + 5, C.navy);
+            text("SHIP", nx + 3, ny + 11, C.blue);
+            text("JOY", nx + 3, ny + 17, C.pink);
+          }
 
           // Menu bar with a live clock
           rect(0, 0, W, 8, C.white);
