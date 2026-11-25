@@ -288,7 +288,9 @@
       button:hover > .arrow-icon {
         transform: translate(1.5px, -1.5px);
       }
-
+      a.back-to-top:hover > .arrow-icon {
+        transform: translateY(-2px);
+      }
       .hairline-b {
         border-bottom: 1px solid var(--border-hairline);
       }
@@ -848,7 +850,7 @@
           ></div>
 
           <div
-            class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start relative z-10"
+            class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start lg:items-stretch relative z-10"
           >
             <!-- Left Column: Invitation & Direct Email Copy -->
             <div class="lg:col-span-6 space-y-6 min-w-0">
@@ -936,10 +938,10 @@
 
             <!-- Right Column: Interactive Inquiry Topic Selector & Message Preview -->
             <div
-              class="spotlight-card lg:col-span-6 min-w-0 bg-paper-100/90 rounded-2xl hairline-all p-4 sm:p-7"
+              class="spotlight-card lg:col-span-6 min-w-0 lg:flex lg:flex-col bg-paper-100/90 rounded-2xl hairline-all p-4 sm:p-7"
             >
               <div
-                class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-4"
+                class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5 sm:gap-1 mb-4"
               >
                 <span
                   class="text-xs uppercase tracking-[0.15em] text-navy-500 font-medium"
@@ -988,25 +990,27 @@
               </div>
 
               <!-- Interactive Editable Message Preview -->
-              <div class="space-y-2">
-                <div
-                  class="flex items-center justify-between gap-3 text-xs text-navy-500"
+              <!-- Mobile: label → textarea → copy button (order-*).
+                   sm+: label + button share row 1, textarea spans row 2. -->
+              <div
+                class="grid grid-cols-1 sm:grid-cols-[1fr_auto] lg:grid-rows-[auto_1fr] lg:flex-1 items-center gap-x-3 gap-y-2 text-xs"
+              >
+                <span class="order-1 sm:order-none text-navy-500"
+                  >2. Quick note preview (editable)</span
                 >
-                  <span>2. Quick note preview (editable)</span>
-                  <button
-                    type="button"
-                    onclick="copyDraftMessage()"
-                    id="copy-draft-btn"
-                    class="text-navy-800 hover:text-navy-900 transition-colors cursor-pointer font-semibold underline underline-offset-4"
-                  >
-                    Copy note
-                  </button>
-                </div>
+                <button
+                  type="button"
+                  onclick="copyDraftMessage()"
+                  id="copy-draft-btn"
+                  class="order-3 sm:order-none justify-self-end text-navy-800 hover:text-navy-900 transition-colors cursor-pointer font-semibold underline underline-offset-4"
+                >
+                  Copy note
+                </button>
                 <textarea
                   id="inquiry-preview"
                   rows="4"
                   aria-label="Editable inquiry message preview"
-                  class="w-full rounded-xl bg-paper-50 hairline-all p-3.5 text-base sm:text-sm text-navy-900 leading-relaxed focus:outline-none focus:border-navy-900 resize-none"
+                  class="order-2 sm:order-none sm:col-span-2 w-full h-44 sm:h-auto lg:h-full lg:self-stretch rounded-xl bg-paper-50 hairline-all p-3.5 text-base sm:text-sm text-navy-900 leading-relaxed focus:outline-none focus:border-navy-900 resize-none"
                 ></textarea>
               </div>
             </div>
@@ -1024,6 +1028,24 @@
           >.</span
         ></span
       >
+      <a
+        href="#top"
+        class="back-to-top order-last sm:order-none inline-flex items-center gap-1.5 normal-case tracking-normal text-xs hover:text-navy-900 transition-colors"
+      >
+        <svg
+          class="arrow-icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.6"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M12 19V5M5 12l7-7 7 7" />
+        </svg>
+        Back to top
+      </a>
       <span>AI × Design × Engineering</span>
     </footer>
 
